@@ -130,12 +130,12 @@ do
     unzip -nq "${folder}/${file}" -d "${folder}/${file%.zip}"
     if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
-#-----------------------------------------------------------------------------
-#Delete files from untested regions (all except pfaf 11)
-#-----------------------------------------------------------------------------
-    find "${folder}" -type f ! -name '*11*' ! -path \
-        '*/cat_MERIT_Hydro_v07_Basins_v01_perim/*' -exec rm {} +
-    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+##-----------------------------------------------------------------------------
+##Delete files from untested regions (all except pfaf 11)
+##-----------------------------------------------------------------------------
+#    find "${folder}" -type f ! -name '*11*' ! -path \
+#        '*/cat_MERIT_Hydro_v07_Basins_v01_perim/*' -exec rm {} +
+#    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 done
 
