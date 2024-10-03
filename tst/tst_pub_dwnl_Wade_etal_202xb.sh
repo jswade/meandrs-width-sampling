@@ -42,11 +42,22 @@ list=("riv_coast.zip"                                                          \
       "V_rivwidth_nrm.zip"                                                     \
       "V_rivwidth_hig.zip"                                                     \
       "largest_rivs.zip"                                                       \
-      "smallest_rivs.zip"                                                      \
       "global_summary.zip"                                                     \
       "cor_sens.zip"                                                           \
       "rivwidth_sens.zip"                                                      \
       )
+
+#list=("riv_coast.zip"                                                          \
+#      "Qout_rivwidth.zip"                                                      \
+#      "V_rivwidth_low.zip"                                                     \
+#      "V_rivwidth_nrm.zip"                                                     \
+#      "V_rivwidth_hig.zip"                                                     \
+#      "largest_rivs.zip"                                                       \
+#      "smallest_rivs.zip"                                                      \
+#      "global_summary.zip"                                                     \
+#      "cor_sens.zip"                                                           \
+#      "rivwidth_sens.zip"                                                      \
+#      )
 
 #-----------------------------------------------------------------------------
 #Download process
