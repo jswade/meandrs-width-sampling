@@ -1,5 +1,5 @@
 # MeanDRS Width Sampling
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13381368.svg)](https://doi.org/10.5281/zenodo.1338168)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13381368.svg)](https://doi.org/10.5281/zenodo.13381368)
 
 [![License (3-Clause BSD)](https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg)](https://github.com/jswade/meandrs-width-sampling/blob/main/LICENSE)
 
