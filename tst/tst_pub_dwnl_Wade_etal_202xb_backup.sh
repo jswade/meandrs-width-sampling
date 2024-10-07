@@ -278,14 +278,14 @@ regs_miss=(`echo ${regs[@]} ${regs_cor[@]} | tr ' ' '\n' | sort | uniq -u`)
 #-----------------------------------------------------------------------------
 for reg in ${regs_miss[@]}
 do
-    cp "${folder}/${list[3]%.zip}/"*${reg}* "${folder}/${list[2]%.zip}"
+    cp "${folder}/${list[10]%.zip}/"*${reg}* "${folder}/${list[9]%.zip}"
     if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 done
 
 #-----------------------------------------------------------------------------
 #Rename moved files from ENS to COR: Qout_pfaf_ii list[9]
 #-----------------------------------------------------------------------------
-for file in "${folder}/${list[2]%.zip}"/*ENS*
+for file in "${folder}/${list[9]%.zip}"/*ENS*
 do
     new_fp=$(echo "${file}" | sed 's/ENS/COR/')
     mv "${file}" "${new_fp}"
@@ -296,11 +296,11 @@ done
 ##Move files to new folders: Qout_pfaf_ii list[9], then list[10]
 #-----------------------------------------------------------------------------
 mkdir "${folder}/Qout_COR"
-mv "${folder}/${list[2]%.zip}/"*.* "${folder}/Qout_COR"
+mv "${folder}/${list[9]%.zip}/"*.* "${folder}/Qout_COR"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 mkdir "${folder}/Qout_UNCOR"
-mv "${folder}/${list[3]%.zip}/"*.* "${folder}/Qout_UNCOR"
+mv "${folder}/${list[10]%.zip}/"*.* "${folder}/Qout_UNCOR"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 #mkdir "${folder}/Qout_CLSM"
