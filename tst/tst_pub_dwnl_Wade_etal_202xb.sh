@@ -130,12 +130,12 @@ do
     unzip -nq "${folder}/${file}" -d "${folder}/${file%.zip}"
     if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
-##-----------------------------------------------------------------------------
-##Delete files from untested regions (all except pfaf 11)
-##-----------------------------------------------------------------------------
-#    find "${folder}" -type f ! -name '*11*' ! -path \
-#        '*/cat_MERIT_Hydro_v07_Basins_v01_perim/*' -exec rm {} +
-#    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#-----------------------------------------------------------------------------
+#Delete files from untested regions (all except pfaf 11)
+#-----------------------------------------------------------------------------
+    find "${folder}" -type f ! -name '*11*' ! -path \
+        '*/cat_MERIT_Hydro_v07_Basins_v01_perim/*' -exec rm {} +
+    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 done
 
@@ -301,17 +301,17 @@ mkdir "${folder}/Qout_UNCOR"
 mv "${folder}/${list[10]%.zip}/"*.* "${folder}/Qout_UNCOR"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
-mkdir "${folder}/Qout_CLSM"
-mv "${folder}/${list[11]%.zip}/"*.* "${folder}/Qout_CLSM"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-
-mkdir "${folder}/Qout_NOAH"
-mv "${folder}/${list[12]%.zip}/"*.* "${folder}/Qout_NOAH"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-
-mkdir "${folder}/Qout_VIC"
-mv "${folder}/${list[13]%.zip}/"*.* "${folder}/Qout_VIC"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#mkdir "${folder}/Qout_CLSM"
+#mv "${folder}/${list[11]%.zip}/"*.* "${folder}/Qout_CLSM"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#
+#mkdir "${folder}/Qout_NOAH"
+#mv "${folder}/${list[12]%.zip}/"*.* "${folder}/Qout_NOAH"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#
+#mkdir "${folder}/Qout_VIC"
+#mv "${folder}/${list[13]%.zip}/"*.* "${folder}/Qout_VIC"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 ##-----------------------------------------------------------------------------
 ###Move files to new folders: cat_pfaf_ii
