@@ -263,6 +263,13 @@ python ../src/mws_rivwidth_Qout.py                                             \
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
+echo "Listing output_test/Qout_rivwidth directory after script run:"
+ls -lah ../output/Qout_rivwidth
+ls -lah ../output_test/Qout_rivwidth
+
+cut -d',' -f36 ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
+cut -d',' -f36 ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
+
 #echo "- Comparing Qout river width file (.csv)"
 #../src/tst_cmp.py                                                              \
 #    ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                     \
