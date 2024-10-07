@@ -98,12 +98,12 @@ jobs:
       - name: Show the 36th column of the generated CSV file for debugging
         run: |
           echo "Generated CSV 36th column:"
-          cut -d',' -f36 ../output_test/Qout_rivwidth/Qout_pfaf_${{ steps.pfaf }}_rivwidth.csv || echo "Error displaying column"
+          cut -d',' -f36 ../output_test/Qout_rivwidth/Qout_pfaf_11_rivwidth.csv || echo "Error displaying column"
 
       - name: Show the 36th column of the expected CSV file for debugging
         run: |
           echo "Expected CSV 36th column:"
-          cut -d',' -f36 ../output/Qout_rivwidth/Qout_pfaf_${{ steps.pfaf }}_rivwidth.csv || echo "Error displaying column"
+          cut -d',' -f36 ../output/Qout_rivwidth/Qout_pfaf_11_rivwidth.csv || echo "Error displaying column"
               
           
 
