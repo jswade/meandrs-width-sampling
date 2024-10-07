@@ -118,14 +118,14 @@ unt=0
 #    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
 #    > $cmp_file
 #x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
+#    
 #echo "- Comparing uncorrected coastal rivers file: ENS (.shp)"
 #../src/tst_cmp.py                                                              \
 #    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
 #    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
 #    > $cmp_file
 #x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
+#    
 #rm -f $run_file
 #rm -f $cmp_file
 #echo "Success"
@@ -155,14 +155,14 @@ unt=0
 #    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
 #    > $run_file
 #x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
+#    
 #echo "- Comparing uncorrected coastal rivers file: VIC (.shp)"
 #../src/tst_cmp.py                                                              \
 #    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
 #    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
 #    > $cmp_file
 #x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
+#    
 #rm -f $run_file
 #rm -f $cmp_file
 #echo "Success"
@@ -191,14 +191,14 @@ unt=0
 #    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
 #    > $run_file
 #x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
+#    
 #echo "- Comparing uncorrected coastal rivers file: CLSM (.shp)"
 #../src/tst_cmp.py                                                              \
 #    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
 #    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
 #    > $cmp_file
 #x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
+#    
 #rm -f $run_file
 #rm -f $cmp_file
 #echo "Success"
@@ -228,14 +228,14 @@ unt=0
 #    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
 #    > $run_file
 #x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
+#    
 #echo "- Comparing uncorrected coastal rivers file: NOAH (.shp)"
 #../src/tst_cmp.py                                                              \
 #    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
 #    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
 #    > $cmp_file
 #x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
+#    
 #rm -f $run_file
 #rm -f $cmp_file
 #echo "Success"
