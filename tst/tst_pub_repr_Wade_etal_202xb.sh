@@ -263,12 +263,25 @@ python ../src/mws_rivwidth_Qout.py                                             \
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
+#echo "- Comparing Qout river width file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                     \
+#    ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
 echo "- Comparing Qout river width file (.csv)"
 ../src/tst_cmp.py                                                              \
     ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                     \
     ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
     > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+x=$? && if [ $x -gt 0 ] ; then
+    echo "Failed comparison: $cmp_file" >&2
+    echo "Contents of the comparison file:"
+    cat $cmp_file
+    exit $x
+fi
+
 
 #echo "Displaying first few lines of the original CSV:"
 #head -n 5 ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
