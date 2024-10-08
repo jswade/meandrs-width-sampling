@@ -267,6 +267,7 @@ x=$? && if [ $x -gt 0 ] ; then
     echo "Contents of the run file:"
     cat $run_file
     exit $x
+fi
 
 #echo "- Comparing Qout river width file (.csv)"
 #../src/tst_cmp.py                                                              \
@@ -286,7 +287,6 @@ x=$? && if [ $x -gt 0 ] ; then
     cat $cmp_file
     exit $x
 fi
-
 
 #echo "Displaying first few lines of the original CSV:"
 #head -n 5 ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
