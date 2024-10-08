@@ -21,6 +21,7 @@ import fiona
 import datetime
 import netCDF4 as nc
 import sys
+import pytz
 
 
 # ******************************************************************************
@@ -43,6 +44,8 @@ riv_cst_uncor_shp = sys.argv[1]
 Qout_cor_nc = sys.argv[2]
 Qout_cst_out = sys.argv[3]
 
+
+Qout_cor_nc = '/Users/jwade/jpl/computing/meandrs/v0.4/github/to_push_meandrs-width-sampling/input/MeanDRS/Qout_COR/Qout_pfaf_11_GLDAS_COR_M_1980-01_2009-12_utc.nc4'
 
 # ******************************************************************************
 # Check if files exist
@@ -170,10 +173,12 @@ for i in range(len(wid_scen)):
 # Write model Q values to csv for each pfaf
 # ******************************************************************************
 print('- Write Qout to CSV')
-# Set index and column names (times are in arbitrary PST)
-time_nc_ser = pd.Series(time_nc)
-Q_df.index = time_nc_ser.apply(lambda x: datetime.datetime.utcfromtimestamp(x) -
-                               datetime.timedelta(hours=8))
+# Set index and column names (times are in arbitrary PST to match Zenodo)
+time_nc_series = pd.Series(time_nc).apply(lambda x:
+                                          datetime.datetime.utcfromtimestamp(x))
+time_nc_series = time_nc_series.dt.tz_localize('UTC').\
+    dt.tz_convert('America/Los_Angeles')
+Q_df.index = time_nc_series.dt.tz_localize(None)
 Q_df.index.name = 'time'
 
 # Write to csv
