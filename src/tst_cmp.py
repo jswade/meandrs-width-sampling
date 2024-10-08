@@ -16,7 +16,7 @@
 # ******************************************************************************
 import sys
 import filecmp
-
+import pandas as pd
 
 # ******************************************************************************
 # Declaration of variables (given as command line arguments)
@@ -59,12 +59,24 @@ except IOError:
 # Compare original and test files
 # ******************************************************************************
 
-# Clear cache
-filecmp.clear_cache()
+# # Clear cache
+# filecmp.clear_cache()
 
-# If files are not identical, raise error
-if not (filecmp.cmp(file_org, file_tst, shallow=False)):
-    print('ERROR - Comparison failed.')
+# # If files are not identical, raise error
+# if not (filecmp.cmp(file_org, file_tst, shallow=False)):
+#     print('ERROR - Comparison failed.')
+#     raise SystemExit(99)
+# else:
+#     print('Comparison successful!')
+
+
+df_org = pd.read_csv(file_org)
+df_tst = pd.read_csv(file_tst)
+
+try:
+    pd.testing.assert_frame_equal(df_org, df_tst)
+    print('Comparison successful! Files contain identical data.')
+except AssertionError as e:
+    print('ERROR - Data comparison failed.')
+    print(e)
     raise SystemExit(99)
-else:
-    print('Comparison successful!')
