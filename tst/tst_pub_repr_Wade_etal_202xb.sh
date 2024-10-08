@@ -275,6 +275,10 @@ x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x
 #echo "Displaying first few lines of the test CSV:"
 #head -n 5 ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
 
+echo "- Comparison output:"
+cat $cmp_file
+
+
 rm -f $run_file
 rm -f $cmp_file
 echo "Success"
