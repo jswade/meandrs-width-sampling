@@ -270,8 +270,10 @@ x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 #    > $cmp_file
 #x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
 
-cut -d',' -f36 ../output/Qout_rivwidth/Qout_pfaf_11_rivwidth.csv
-cut -d',' -f36 ../output_test/Qout_rivwidth/Qout_pfaf_11_rivwidth.csv
+echo "Displaying first few lines of the original CSV:"
+head -n 5 ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
+echo "Displaying first few lines of the test CSV:"
+head -n 5 ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
 
 rm -f $run_file
 rm -f $cmp_file
