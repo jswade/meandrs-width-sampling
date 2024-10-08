@@ -45,8 +45,6 @@ Qout_cor_nc = sys.argv[2]
 Qout_cst_out = sys.argv[3]
 
 
-Qout_cor_nc = '/Users/jwade/jpl/computing/meandrs/v0.4/github/to_push_meandrs-width-sampling/input/MeanDRS/Qout_COR/Qout_pfaf_11_GLDAS_COR_M_1980-01_2009-12_utc.nc4'
-
 # ******************************************************************************
 # Check if files exist
 # ******************************************************************************
