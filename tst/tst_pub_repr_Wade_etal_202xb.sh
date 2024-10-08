@@ -261,7 +261,12 @@ python ../src/mws_rivwidth_Qout.py                                             \
     ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
     ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
     > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+x=$? && if [ $x -gt 0 ] ; then
+    echo "Failed comparison: $run_file" >&2
+    echo "Contents of the run file:"
+    cat $run_file
+    exit $x
 
 #echo "- Comparing Qout river width file (.csv)"
 #../src/tst_cmp.py                                                              \
