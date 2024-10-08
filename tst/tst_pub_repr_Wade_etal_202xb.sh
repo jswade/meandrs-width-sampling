@@ -267,8 +267,15 @@ echo "Listing output_test/Qout_rivwidth directory after script run:"
 ls -lah ../output/Qout_rivwidth
 ls -lah ../output_test/Qout_rivwidth
 
-cut -d',' -f36 ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
-cut -d',' -f36 ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
+#cut -d',' -f36 ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
+#cut -d',' -f36 ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
+
+echo "Displaying first few lines of the original CSV:"
+head -n 5 ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
+
+echo "Displaying first few lines of the test CSV:"
+head -n 5 ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv
+
 
 #echo "- Comparing Qout river width file (.csv)"
 #../src/tst_cmp.py                                                              \
