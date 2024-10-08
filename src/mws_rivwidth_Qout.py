@@ -172,7 +172,7 @@ for i in range(len(wid_scen)):
 print('- Write Qout to CSV')
 # Set index and column names
 time_nc_ser = pd.Series(time_nc)
-Q_df.index = time_nc_ser.apply(lambda x: datetime.datetime.fromtimestamp(x))
+Q_df.index = time_nc_ser.apply(lambda x: datetime.datetime.utcfromtimestamp(x))
 Q_df.index.name = 'time'
 
 # Write to csv

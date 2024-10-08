@@ -196,7 +196,8 @@ def calcV(fp_in, fp_out):
     # --------------------------------------------------------------------------
     # Set index and column names
     time_nc_ser = pd.Series(time_nc)
-    V_df.index = time_nc_ser.apply(lambda x: datetime.datetime.fromtimestamp(x))
+    V_df.index = time_nc_ser.apply(lambda x:
+                                   datetime.datetime.utcfromtimestamp(x))
     V_df.index.name = 'time'
 
     # Write to csv
