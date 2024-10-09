@@ -1,4 +1,0 @@
-- Reading shapefiles
-- Clipping global coastline
-- Identifying rivers draining to coast
-- Writing shapefiles
