@@ -36,7 +36,9 @@ echo "- Downloading MeanDRS Width Sampling repository"
 #-----------------------------------------------------------------------------
 URL="https://zenodo.org/records/13381368/files"
 folder="../output"
-list=("riv_coast.zip")
+list=("riv_coast.zip"                                                          \
+      "rivwid_sense.zip"                                                       \
+      )
 
 #list=("riv_coast.zip"                                                          \
 #      "Qout_rivwidth.zip"                                                      \
