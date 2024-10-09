@@ -35,8 +35,8 @@ rank='10'
 #*****************************************************************************
 #Retrieve number of files preset in output directories
 #*****************************************************************************
-num_files=$(ls ../input/MeanDRS/Qout_COR/* | wc -l)
-
+#num_files=$(ls ../input/MeanDRS/Qout_COR/* | wc -l)
+num_files=$(ls ../input/MeanDRS/riv_UNCOR/* | wc -l)
 
 #*****************************************************************************
 #Select which unit tests to perform based on inputs to this shell script
