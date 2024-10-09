@@ -58,16 +58,15 @@ except IOError:
 # ******************************************************************************
 # Compare original and test files
 # ******************************************************************************
+# Clear cache
+filecmp.clear_cache()
 
- # Clear cache
- filecmp.clear_cache()
-
- # If files are not identical, raise error
- if not (filecmp.cmp(file_org, file_tst, shallow=False)):
-     print('ERROR - Comparison failed.')
-     raise SystemExit(99)
- else:
-     print('Comparison successful!')
+# If files are not identical, raise error
+if not (filecmp.cmp(file_org, file_tst, shallow=False)):
+    print('ERROR - Comparison failed.')
+    raise SystemExit(99)
+else:
+    print('Comparison successful!')
 
 
 #df_org = pd.read_csv(file_org)
