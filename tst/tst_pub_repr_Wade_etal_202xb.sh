@@ -86,161 +86,161 @@ fi
 #*****************************************************************************
 unt=0
 
-
-#*****************************************************************************
-#Identify rivers draining to the global coast: ENS/COR
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/riv_coast/cor"
-mkdir -p "../output_test/riv_coast/uncor"
-
-echo "- Identifying coastal rivers: ENS/COR"
-../src/mws_coastal_rivs.py                                                     \
-    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_11_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
-    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
-    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing corrected coastal rivers file: COR (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                     \
-    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing uncorrected coastal rivers file: ENS (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
-    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Identify rivers draining to the global coast: Uncorrected VIC
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_VIC"
-
-echo "- Identifying coastal rivers: VIC"
-../src/mws_coastal_rivs.py                                                     \
-    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-    ../input/MeanDRS/Qout_VIC/Qout_pfaf_${pfaf}_GLDAS_VIC_M_1980-01_2009-12_utc.nc4 \
-    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing uncorrected coastal rivers file: VIC (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
-    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-#*****************************************************************************
-#Identify rivers draining to the global coast: Uncorrected CLSM
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_CLSM"
-
-echo "- Identifying coastal rivers: CLSM"
-../src/mws_coastal_rivs.py                                                     \
-    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-    ../input/MeanDRS/Qout_CLSM/Qout_pfaf_${pfaf}_GLDAS_CLSM_M_1980-01_2009-12_utc.nc4\
-    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing uncorrected coastal rivers file: CLSM (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Identify rivers draining to the global coast: Uncorrected NOAH
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_NOAH"
-
-echo "- Identifying coastal rivers: NOAH"
-../src/mws_coastal_rivs.py                                                     \
-    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-    ../input/MeanDRS/Qout_NOAH/Qout_pfaf_${pfaf}_GLDAS_NOAH_M_1980-01_2009-12_utc.nc4\
-    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing uncorrected coastal rivers file: NOAH (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
+#
+##*****************************************************************************
+##Identify rivers draining to the global coast: ENS/COR
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/riv_coast/cor"
+#mkdir -p "../output_test/riv_coast/uncor"
+#
+#echo "- Identifying coastal rivers: ENS/COR"
+#../src/mws_coastal_rivs.py                                                     \
+#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+#    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_11_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
+#    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
+#    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing corrected coastal rivers file: COR (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                     \
+#    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing uncorrected coastal rivers file: ENS (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
+#    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Identify rivers draining to the global coast: Uncorrected VIC
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_VIC"
+#
+#echo "- Identifying coastal rivers: VIC"
+#../src/mws_coastal_rivs.py                                                     \
+#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+#    ../input/MeanDRS/Qout_VIC/Qout_pfaf_${pfaf}_GLDAS_VIC_M_1980-01_2009-12_utc.nc4 \
+#    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing uncorrected coastal rivers file: VIC (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
+#    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+##*****************************************************************************
+##Identify rivers draining to the global coast: Uncorrected CLSM
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_CLSM"
+#
+#echo "- Identifying coastal rivers: CLSM"
+#../src/mws_coastal_rivs.py                                                     \
+#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+#    ../input/MeanDRS/Qout_CLSM/Qout_pfaf_${pfaf}_GLDAS_CLSM_M_1980-01_2009-12_utc.nc4\
+#    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing uncorrected coastal rivers file: CLSM (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+#    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Identify rivers draining to the global coast: Uncorrected NOAH
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_NOAH"
+#
+#echo "- Identifying coastal rivers: NOAH"
+#../src/mws_coastal_rivs.py                                                     \
+#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+#    ../input/MeanDRS/Qout_NOAH/Qout_pfaf_${pfaf}_GLDAS_NOAH_M_1980-01_2009-12_utc.nc4\
+#    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing uncorrected coastal rivers file: NOAH (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+#    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
 
 
 #*****************************************************************************

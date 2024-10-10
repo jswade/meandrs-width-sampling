@@ -98,9 +98,6 @@ list=("riv_pfaf_ii_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.zip" \
       "cat_pfaf_ii_MERIT_Hydro_v07_Basins_v01_disso.zip" \
       "Qout_pfaf_ii_GLDAS_COR_M_1980-01_2009-12_utc.zip" \
       "Qout_pfaf_ii_GLDAS_ENS_M_1980-01_2009-12_utc.zip"\
-      "Qout_pfaf_ii_GLDAS_CLSM_M_1980-01_2009-12_utc.zip" \
-      "Qout_pfaf_ii_GLDAS_NOAH_M_1980-01_2009-12_utc.zip" \
-      "Qout_pfaf_ii_GLDAS_VIC_M_1980-01_2009-12_utc.zip" \
       "cat_MERIT_Hydro_v07_Basins_v01_perim.zip" \
      )
 
@@ -310,21 +307,21 @@ mkdir "${folder}/Qout_COR"
 mv "${folder}/${list[3]%.zip}/"*.* "${folder}/Qout_COR"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
-mkdir "${folder}/Qout_UNCOR"
-mv "${folder}/${list[4]%.zip}/"*.* "${folder}/Qout_UNCOR"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-
-mkdir "${folder}/Qout_CLSM"
-mv "${folder}/${list[5]%.zip}/"*.* "${folder}/Qout_CLSM"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-
-mkdir "${folder}/Qout_NOAH"
-mv "${folder}/${list[6]%.zip}/"*.* "${folder}/Qout_NOAH"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-
-mkdir "${folder}/Qout_VIC"
-mv "${folder}/${list[7]%.zip}/"*.* "${folder}/Qout_VIC"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#mkdir "${folder}/Qout_UNCOR"
+#mv "${folder}/${list[10]%.zip}/"*.* "${folder}/Qout_UNCOR"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#
+#mkdir "${folder}/Qout_CLSM"
+#mv "${folder}/${list[11]%.zip}/"*.* "${folder}/Qout_CLSM"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#
+#mkdir "${folder}/Qout_NOAH"
+#mv "${folder}/${list[12]%.zip}/"*.* "${folder}/Qout_NOAH"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#
+#mkdir "${folder}/Qout_VIC"
+#mv "${folder}/${list[13]%.zip}/"*.* "${folder}/Qout_VIC"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 #-----------------------------------------------------------------------------
 ##Move files to new folders: cat_pfaf_ii
@@ -344,7 +341,7 @@ if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 ##Move files to new folders: global_perim GLOBAL PERIM -> 15
 #-----------------------------------------------------------------------------
 mkdir "${folder}/global_perim"
-mv "${folder}/${list[8]%.zip}/"*.* "${folder}/global_perim"
+mv "${folder}/${list[5]%.zip}/"*.* "${folder}/global_perim"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 echo "Success"
