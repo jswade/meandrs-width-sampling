@@ -36,15 +36,6 @@ echo "- Downloading MeanDRS Width Sampling repository"
 #-----------------------------------------------------------------------------
 URL="https://zenodo.org/records/13381368/files"
 folder="../output"
-#list=("riv_coast.zip"                                                          \
-#      "Qout_rivwidth.zip"                                                      \
-#      "rivwidth_sens.zip"                                                      \
-#      "cor_sens.zip"                                                           \
-#      "V_rivwidth_low.zip"                                                     \
-#      "V_rivwidth_nrm.zip"                                                     \
-#      "V_rivwidth_hig.zip"                                                     \
-#      )
-
 list=("riv_coast.zip"                                                          \
       "Qout_rivwidth.zip"                                                      \
       "V_rivwidth_low.zip"                                                     \
@@ -98,21 +89,6 @@ echo "- Downloading MeanDRS files"
 #-----------------------------------------------------------------------------
 URL="https://zenodo.org/records/10013744/files"
 folder="../input/MeanDRS"
-#list=("riv_pfaf_ii_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.zip" \
-#      "riv_pfaf_ii_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.zip" \
-#      "V_pfaf_ii_GLDAS_COR_M_1980-01_2009-12_utc_low.zip" \
-#      "V_pfaf_ii_GLDAS_COR_M_1980-01_2009-12_utc_nrm.zip" \
-#      "V_pfaf_ii_GLDAS_COR_M_1980-01_2009-12_utc_hig.zip" \
-#      "V_pfaf_ii_GLDAS_ENS_M_1980-01_2009-12_utc_low.zip" \
-#      "V_pfaf_ii_GLDAS_ENS_M_1980-01_2009-12_utc_nrm.zip" \
-#      "V_pfaf_ii_GLDAS_ENS_M_1980-01_2009-12_utc_hig.zip" \
-#      "Qout_pfaf_ii_GLDAS_COR_M_1980-01_2009-12_utc.zip" \
-#      "Qout_pfaf_ii_GLDAS_ENS_M_1980-01_2009-12_utc.zip" \
-#      "Qout_pfaf_ii_GLDAS_CLSM_M_1980-01_2009-12_utc.zip" \
-#      "Qout_pfaf_ii_GLDAS_NOAH_M_1980-01_2009-12_utc.zip" \
-#      "Qout_pfaf_ii_GLDAS_VIC_M_1980-01_2009-12_utc.zip" \
-#     )
-
 list=("riv_pfaf_ii_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.zip" \
       "riv_pfaf_ii_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.zip" \
       "cat_pfaf_ii_MERIT_Hydro_v07_Basins_v01_disso.zip" \
@@ -367,103 +343,103 @@ done
 #Done
 #*****************************************************************************
 
-
-#*****************************************************************************
-#Download MERIT-Basins files
-#*****************************************************************************
-echo "- Downloading MERIT-Basins files"
-#-----------------------------------------------------------------------------
-#Download parameters from Google Drive
-#-----------------------------------------------------------------------------
-# Embedded Folder View shows all 61 files, rather than the 50 limited by G.D.
-URL="https://drive.google.com/embeddedfolderview?id=1nXMgbDjLLtB9XPwfVCLcF_0"\
-"vlYS2M3wy"
-folder="../input/MB"
-
-mkdir -p $folder
-
-#Retrieve HTML from Google Drive file view
-wget -q -O "${folder}/temphtml" "$URL"
-if [ $? -gt 0 ] ; then echo "Problem downloading MERIT-Basins" >&2 ; exit 44 ; fi
-
-#Scrape download id and name for each file from HTML
-idlist=($(grep -o '<div class="flip-entry" id="entry-[0-9a-zA-Z_-]*"'         \
-    "${folder}/temphtml" | sed 's/^.*id="entry-\([0-9a-zA-Z_-]*\)".*$/\1/'))
-if [ $? -gt 0 ] ; then echo "Problem downloading MERIT-Basins" >&2 ; exit 44 ; fi
-
-filelist=($(grep -o '"flip-entry-title">[^<]*<' "${folder}/temphtml" |        \
-    sed 's/"flip-entry-title">//; s/<$//'))
-if [ $? -gt 0 ] ; then echo "Problem downloading MERIT-Basins" >&2 ; exit 44 ; fi
-
-#Check if lists have same length
-if [ ${#filelist[@]} -ne ${#idlist[@]} ]; then echo "Problem downloading MERIT-Basins"\
-    >&2 ; exit 44 ; fi
-
-rm "${folder}/temphtml"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-
-#-----------------------------------------------------------------------------
-#Download process, bypassing Google Drive download warning using cookies
-#-----------------------------------------------------------------------------
-
-#Download files for pfaf 11
-file="${filelist[0]}"
-id="${idlist[0]}"
-
-#Save uuid value from server for authentication
-wget "https://docs.google.com/uc?export=download&id=1z-l1ICC7X4iKy0vd7FkT5X4u8Ie2l3sy" -O- | sed -rn 's/.*name="uuid" value=\"([0-9A-Za-z_\-]+).*/\1/p' > "${folder}/google_uuid.txt"
-if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
-
-#Download file from server using uuid value
-wget -O "${folder}/$file" "https://drive.usercontent.google.com/download?export=download&id=${id}&confirm=t&uuid=$(<"${folder}/google_uuid.txt")"
-
-rm "${folder}/google_uuid.txt"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-
-#-----------------------------------------------------------------------------
-#Extract files
-#-----------------------------------------------------------------------------
-unzip -nq "${folder}/$file" -d "${folder}/${filename%.zip}"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-
-#-----------------------------------------------------------------------------
-#Delete zip files
-#-----------------------------------------------------------------------------
-rm "${folder}/$file"
-if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-
-#-----------------------------------------------------------------------------
-#Organize files by type (riv and cat)
-#-----------------------------------------------------------------------------
-mkdir -p "$folder/cat"
-mkdir -p "$folder/riv"
-
-#Move all files beginning with cat
-for file in "${folder}/cat"*
-do
-    #Confirm file exists and is regular
-    if [ -f "$file" ]; then
-        mv "$file" "$folder/cat/"
-        if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-    fi
-done
-
-#Move all files beginning with riv
-for file in "${folder}/riv"*
-do
-    #Confirm file exists and is regular
-    if [ -f "$file" ]; then
-        mv "$file" "$folder/riv/"
-        if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-    fi
-done
-
-# Remove riv files
-rm -rf "$folder/riv"
-
-echo "Success"
-echo "********************"
-
-#*****************************************************************************
-#Done
-#*****************************************************************************
+#
+##*****************************************************************************
+##Download MERIT-Basins files
+##*****************************************************************************
+#echo "- Downloading MERIT-Basins files"
+##-----------------------------------------------------------------------------
+##Download parameters from Google Drive
+##-----------------------------------------------------------------------------
+## Embedded Folder View shows all 61 files, rather than the 50 limited by G.D.
+#URL="https://drive.google.com/embeddedfolderview?id=1nXMgbDjLLtB9XPwfVCLcF_0"\
+#"vlYS2M3wy"
+#folder="../input/MB"
+#
+#mkdir -p $folder
+#
+##Retrieve HTML from Google Drive file view
+#wget -q -O "${folder}/temphtml" "$URL"
+#if [ $? -gt 0 ] ; then echo "Problem downloading MERIT-Basins" >&2 ; exit 44 ; fi
+#
+##Scrape download id and name for each file from HTML
+#idlist=($(grep -o '<div class="flip-entry" id="entry-[0-9a-zA-Z_-]*"'         \
+#    "${folder}/temphtml" | sed 's/^.*id="entry-\([0-9a-zA-Z_-]*\)".*$/\1/'))
+#if [ $? -gt 0 ] ; then echo "Problem downloading MERIT-Basins" >&2 ; exit 44 ; fi
+#
+#filelist=($(grep -o '"flip-entry-title">[^<]*<' "${folder}/temphtml" |        \
+#    sed 's/"flip-entry-title">//; s/<$//'))
+#if [ $? -gt 0 ] ; then echo "Problem downloading MERIT-Basins" >&2 ; exit 44 ; fi
+#
+##Check if lists have same length
+#if [ ${#filelist[@]} -ne ${#idlist[@]} ]; then echo "Problem downloading MERIT-Basins"\
+#    >&2 ; exit 44 ; fi
+#
+#rm "${folder}/temphtml"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#
+##-----------------------------------------------------------------------------
+##Download process, bypassing Google Drive download warning using cookies
+##-----------------------------------------------------------------------------
+#
+##Download files for pfaf 11
+#file="${filelist[0]}"
+#id="${idlist[0]}"
+#
+##Save uuid value from server for authentication
+#wget "https://docs.google.com/uc?export=download&id=1z-l1ICC7X4iKy0vd7FkT5X4u8Ie2l3sy" -O- | sed -rn 's/.*name="uuid" value=\"([0-9A-Za-z_\-]+).*/\1/p' > "${folder}/google_uuid.txt"
+#if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
+#
+##Download file from server using uuid value
+#wget -O "${folder}/$file" "https://drive.usercontent.google.com/download?export=download&id=${id}&confirm=t&uuid=$(<"${folder}/google_uuid.txt")"
+#
+#rm "${folder}/google_uuid.txt"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#
+##-----------------------------------------------------------------------------
+##Extract files
+##-----------------------------------------------------------------------------
+#unzip -nq "${folder}/$file" -d "${folder}/${filename%.zip}"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#
+##-----------------------------------------------------------------------------
+##Delete zip files
+##-----------------------------------------------------------------------------
+#rm "${folder}/$file"
+#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#
+##-----------------------------------------------------------------------------
+##Organize files by type (riv and cat)
+##-----------------------------------------------------------------------------
+#mkdir -p "$folder/cat"
+#mkdir -p "$folder/riv"
+#
+##Move all files beginning with cat
+#for file in "${folder}/cat"*
+#do
+#    #Confirm file exists and is regular
+#    if [ -f "$file" ]; then
+#        mv "$file" "$folder/cat/"
+#        if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#    fi
+#done
+#
+##Move all files beginning with riv
+#for file in "${folder}/riv"*
+#do
+#    #Confirm file exists and is regular
+#    if [ -f "$file" ]; then
+#        mv "$file" "$folder/riv/"
+#        if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#    fi
+#done
+#
+## Remove riv files
+#rm -rf "$folder/riv"
+#
+#echo "Success"
+#echo "********************"
+#
+##*****************************************************************************
+##Done
+##*****************************************************************************
