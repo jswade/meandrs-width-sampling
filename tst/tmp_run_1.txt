@@ -1,0 +1,4 @@
+- Reading shapefiles
+- Sample MeanDRS rivers by estimated river width
+- Calculate discharge to ocean from width samples
+- Write Qout to CSV
