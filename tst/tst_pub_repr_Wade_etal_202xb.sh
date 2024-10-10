@@ -243,176 +243,176 @@ echo "********************"
 fi
 
 
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: ENS/COR
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/Qout_rivwidth"
-#
-#echo "- Calculate discharge to ocean for river width samples: ENS/COR"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
-#    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                     \
-#    ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: VIC
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_VIC/"
-#
-#echo "- Calculate discharge to ocean for river width samples: VIC"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
-#    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file: VIC (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: CLSM
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_CLSM/"
-#
-#echo "- Calculate discharge to ocean for river width samples: CLSM"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-#    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file: CLSM (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: NOAH
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_NOAH/"
-#
-#echo "- Calculate discharge to ocean for river width samples: NOAH"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-#    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file: NOAH (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: ENS/ENS
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/cor_sens/Qout_rivwidth_ENS/"
-#
-#echo "- Calculate discharge to ocean for river width samples: ENS"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
-#    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file: ENS/ENS (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv    \
-#    ../output_test/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: ENS/COR
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/Qout_rivwidth"
+
+echo "- Calculate discharge to ocean for river width samples: ENS/COR"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
+    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
+    ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                     \
+    ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: VIC
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_VIC/"
+
+echo "- Calculate discharge to ocean for river width samples: VIC"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
+    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file: VIC (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
+    ../output_test/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: CLSM
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_CLSM/"
+
+echo "- Calculate discharge to ocean for river width samples: CLSM"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file: CLSM (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: NOAH
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_NOAH/"
+
+echo "- Calculate discharge to ocean for river width samples: NOAH"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file: NOAH (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: ENS/ENS
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/cor_sens/Qout_rivwidth_ENS/"
+
+echo "- Calculate discharge to ocean for river width samples: ENS"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
+    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
+    ../output_test/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file: ENS/ENS (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv    \
+    ../output_test/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
 ##*****************************************************************************
 ##Calculate total volume based on river width samples: ENS/COR
 ##*****************************************************************************

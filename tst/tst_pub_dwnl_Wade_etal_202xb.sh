@@ -96,6 +96,7 @@ folder="../input/MeanDRS"
 list=("riv_pfaf_ii_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.zip" \
       "riv_pfaf_ii_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.zip" \
       "cat_pfaf_ii_MERIT_Hydro_v07_Basins_v01_disso.zip" \
+      "Qout_pfaf_ii_GLDAS_COR_M_1980-01_2009-12_utc.zip" \
       "Qout_pfaf_ii_GLDAS_ENS_M_1980-01_2009-12_utc.zip"\
       "Qout_pfaf_ii_GLDAS_CLSM_M_1980-01_2009-12_utc.zip" \
       "Qout_pfaf_ii_GLDAS_NOAH_M_1980-01_2009-12_utc.zip" \
@@ -278,50 +279,51 @@ if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 #mv "${folder}/${list[8]%.zip}/"*.* "${folder}/V_hig_UNCOR"
 #if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 #
-##-----------------------------------------------------------------------------
-##Copy missing region files from ENS to COR: Qout_pfaf_ii
-##-----------------------------------------------------------------------------
-#for reg in ${regs_miss[@]}
-#do
-#    cp "${folder}/${list[10]%.zip}/"*${reg}* "${folder}/${list[9]%.zip}"
-#    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#done
-#
-##-----------------------------------------------------------------------------
-##Rename moved files from ENS to COR: Qout_pfaf_ii
-##-----------------------------------------------------------------------------
-#for file in "${folder}/${list[9]%.zip}"/*ENS*
-#do
-#    new_fp=$(echo "${file}" | sed 's/ENS/COR/')
-#    mv "${file}" "${new_fp}"
-#    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#done
-#
-##-----------------------------------------------------------------------------
-###Move files to new folders: Qout_pfaf_ii Qout_UNCOR -> 10
-## UNCOR - 10
-## CLSM - 11
-## NOAH - 12
-## VIC - 13
-##-----------------------------------------------------------------------------
-#mkdir "${folder}/Qout_COR"
-#mv "${folder}/${list[9]%.zip}/"*.* "${folder}/Qout_COR"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
+#-----------------------------------------------------------------------------
+#Copy missing region files from ENS to COR: Qout_pfaf_ii (10 / 9)
+#-----------------------------------------------------------------------------
+for reg in ${regs_miss[@]}
+do
+    cp "${folder}/${list[4]%.zip}/"*${reg}* "${folder}/${list[3]%.zip}"
+    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+done
+
+#-----------------------------------------------------------------------------
+#Rename moved files from ENS to COR: Qout_pfaf_ii (9)
+#-----------------------------------------------------------------------------
+for file in "${folder}/${list[3]%.zip}"/*ENS*
+do
+    new_fp=$(echo "${file}" | sed 's/ENS/COR/')
+    mv "${file}" "${new_fp}"
+    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+done
+
+#-----------------------------------------------------------------------------
+##Move files to new folders: Qout_pfaf_ii Qout_UNCOR -> 10
+# COR - 9
+# UNCOR - 10
+# CLSM - 11
+# NOAH - 12
+# VIC - 13
+#-----------------------------------------------------------------------------
+mkdir "${folder}/Qout_COR"
+mv "${folder}/${list[3]%.zip}/"*.* "${folder}/Qout_COR"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
 mkdir "${folder}/Qout_UNCOR"
-mv "${folder}/${list[3]%.zip}/"*.* "${folder}/Qout_UNCOR"
+mv "${folder}/${list[4]%.zip}/"*.* "${folder}/Qout_UNCOR"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 mkdir "${folder}/Qout_CLSM"
-mv "${folder}/${list[4]%.zip}/"*.* "${folder}/Qout_CLSM"
+mv "${folder}/${list[5]%.zip}/"*.* "${folder}/Qout_CLSM"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 mkdir "${folder}/Qout_NOAH"
-mv "${folder}/${list[5]%.zip}/"*.* "${folder}/Qout_NOAH"
+mv "${folder}/${list[6]%.zip}/"*.* "${folder}/Qout_NOAH"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 mkdir "${folder}/Qout_VIC"
-mv "${folder}/${list[6]%.zip}/"*.* "${folder}/Qout_VIC"
+mv "${folder}/${list[7]%.zip}/"*.* "${folder}/Qout_VIC"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 #-----------------------------------------------------------------------------
@@ -342,7 +344,7 @@ if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 ##Move files to new folders: global_perim GLOBAL PERIM -> 15
 #-----------------------------------------------------------------------------
 mkdir "${folder}/global_perim"
-mv "${folder}/${list[7]%.zip}/"*.* "${folder}/global_perim"
+mv "${folder}/${list[8]%.zip}/"*.* "${folder}/global_perim"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 echo "Success"
