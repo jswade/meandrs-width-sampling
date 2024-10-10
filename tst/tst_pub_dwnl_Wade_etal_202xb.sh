@@ -37,6 +37,7 @@ echo "- Downloading MeanDRS Width Sampling repository"
 URL="https://zenodo.org/records/13381368/files"
 folder="../output"
 list=("riv_coast.zip"                                                          \
+      "rivwidth_sens.zip"                                                      \
       )
 
 #list=("riv_coast.zip"                                                          \
@@ -96,6 +97,9 @@ list=("riv_pfaf_ii_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.zip" \
       "riv_pfaf_ii_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.zip" \
       "cat_pfaf_ii_MERIT_Hydro_v07_Basins_v01_disso.zip" \
       "Qout_pfaf_ii_GLDAS_ENS_M_1980-01_2009-12_utc.zip"\
+      "Qout_pfaf_ii_GLDAS_CLSM_M_1980-01_2009-12_utc.zip" \
+      "Qout_pfaf_ii_GLDAS_NOAH_M_1980-01_2009-12_utc.zip" \
+      "Qout_pfaf_ii_GLDAS_VIC_M_1980-01_2009-12_utc.zip" \
       "cat_MERIT_Hydro_v07_Basins_v01_perim.zip" \
      )
 
@@ -295,6 +299,10 @@ if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 #
 ##-----------------------------------------------------------------------------
 ###Move files to new folders: Qout_pfaf_ii Qout_UNCOR -> 10
+## UNCOR - 10
+## CLSM - 11
+## NOAH - 12
+## VIC - 13
 ##-----------------------------------------------------------------------------
 #mkdir "${folder}/Qout_COR"
 #mv "${folder}/${list[9]%.zip}/"*.* "${folder}/Qout_COR"
@@ -303,18 +311,18 @@ if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 mkdir "${folder}/Qout_UNCOR"
 mv "${folder}/${list[3]%.zip}/"*.* "${folder}/Qout_UNCOR"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-#mkdir "${folder}/Qout_CLSM"
-#mv "${folder}/${list[11]%.zip}/"*.* "${folder}/Qout_CLSM"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-#mkdir "${folder}/Qout_NOAH"
-#mv "${folder}/${list[12]%.zip}/"*.* "${folder}/Qout_NOAH"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
-#mkdir "${folder}/Qout_VIC"
-#mv "${folder}/${list[13]%.zip}/"*.* "${folder}/Qout_VIC"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+mkdir "${folder}/Qout_CLSM"
+mv "${folder}/${list[4]%.zip}/"*.* "${folder}/Qout_CLSM"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+mkdir "${folder}/Qout_NOAH"
+mv "${folder}/${list[5]%.zip}/"*.* "${folder}/Qout_NOAH"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+mkdir "${folder}/Qout_VIC"
+mv "${folder}/${list[6]%.zip}/"*.* "${folder}/Qout_VIC"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 #-----------------------------------------------------------------------------
 ##Move files to new folders: cat_pfaf_ii
@@ -334,7 +342,7 @@ if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 ##Move files to new folders: global_perim GLOBAL PERIM -> 15
 #-----------------------------------------------------------------------------
 mkdir "${folder}/global_perim"
-mv "${folder}/${list[4]%.zip}/"*.* "${folder}/global_perim"
+mv "${folder}/${list[7]%.zip}/"*.* "${folder}/global_perim"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 echo "Success"
