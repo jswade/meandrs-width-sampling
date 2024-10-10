@@ -308,10 +308,10 @@ mkdir "${folder}/Qout_COR"
 mv "${folder}/${list[3]%.zip}/"*.* "${folder}/Qout_COR"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
-#mkdir "${folder}/Qout_UNCOR"
-#mv "${folder}/${list[10]%.zip}/"*.* "${folder}/Qout_UNCOR"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
+mkdir "${folder}/Qout_UNCOR"
+mv "${folder}/${list[4]%.zip}/"*.* "${folder}/Qout_UNCOR"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
 #mkdir "${folder}/Qout_CLSM"
 #mv "${folder}/${list[11]%.zip}/"*.* "${folder}/Qout_CLSM"
 #if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
