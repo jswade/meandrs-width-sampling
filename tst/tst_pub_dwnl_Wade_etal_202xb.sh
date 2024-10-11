@@ -9,7 +9,7 @@
 #The files used are available from:
 #DOI: 10.5281/zenodo.13381368
 #The script returns the following exit codes
-# - 0  if all downloads are successful
+# - 0  if all downloads were successful
 # - 22 if there was a conversion problem
 # - 44 if one download is not successful
 #Author:
