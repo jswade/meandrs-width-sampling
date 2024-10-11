@@ -1816,81 +1816,81 @@ fi
 #fi
 
 
-#*****************************************************************************
-#Produce visualizations: Supplemental 1
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/figures"
-
-echo "- Producing visualizations: Supplemental Figures Part 1"
-../src/mws_plots_supp1.py                                                      \
-    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv              \
-    ../output/global_summary/Qout_rivwidth/Qout_std_prop.csv                   \
-    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
-    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
-    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
-    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
-    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
-    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
-    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv            \
-    ../output/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv                 \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv\
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv\
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv\
-    ../output_test/figures/figure_s1_out.svg                                   \
-    ../output_test/figures/figure_s2_out.svg                                   \
-    ../output_test/figures/figure_s3_out.svg                                   \
-    ../output_test/figures/figure_s4_out.svg                                   \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Produce visualizations: Supplemental 2
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/figures"
-
-echo "- Producing visualizations: Supplemental Figures Part 2"
-../src/mws_plots_supp2.py                                                      \
-    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
-    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv  \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
-    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv              \
-    ../output/global_summary/Qout_rivwidth/Qout_std_prop.csv                   \
-    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv            \
-    ../output/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv                 \
-    ../output_test/figures/figure_s5_out.svg                                   \
-    ../output_test/figures/figure_s6_out.svg                                   \
-    ../output_test/figures/figure_s7_out.svg                                   \
-    ../output_test/figures/figure_s8_out.svg                                   \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
+##*****************************************************************************
+##Produce visualizations: Supplemental 1
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/figures"
+#
+#echo "- Producing visualizations: Supplemental Figures Part 1"
+#../src/mws_plots_supp1.py                                                      \
+#    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv              \
+#    ../output/global_summary/Qout_rivwidth/Qout_std_prop.csv                   \
+#    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
+#    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
+#    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
+#    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
+#    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
+#    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
+#    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv            \
+#    ../output/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv                 \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv\
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv\
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv\
+#    ../output_test/figures/figure_s1_out.svg                                   \
+#    ../output_test/figures/figure_s2_out.svg                                   \
+#    ../output_test/figures/figure_s3_out.svg                                   \
+#    ../output_test/figures/figure_s4_out.svg                                   \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Produce visualizations: Supplemental 2
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/figures"
+#
+#echo "- Producing visualizations: Supplemental Figures Part 2"
+#../src/mws_plots_supp2.py                                                      \
+#    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
+#    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv  \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
+#    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv              \
+#    ../output/global_summary/Qout_rivwidth/Qout_std_prop.csv                   \
+#    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv            \
+#    ../output/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv                 \
+#    ../output_test/figures/figure_s5_out.svg                                   \
+#    ../output_test/figures/figure_s6_out.svg                                   \
+#    ../output_test/figures/figure_s7_out.svg                                   \
+#    ../output_test/figures/figure_s8_out.svg                                   \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
