@@ -1,2 +1,0 @@
-- Reading files
-- Computing global Q summary
