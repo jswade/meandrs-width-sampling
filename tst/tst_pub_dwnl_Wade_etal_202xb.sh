@@ -25,7 +25,7 @@ echo "These files are under a CC BY-NC-SA 4.0 license."
 echo "Please cite these two DOIs if using these files for your publications."
 echo "********************"
 
-
+echo df -h
 
 #*****************************************************************************
 #Download MeanDRS Width Sampling Zenodo Repository to /output/
