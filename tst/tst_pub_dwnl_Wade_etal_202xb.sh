@@ -15,6 +15,9 @@
 #Author:
 #Jeffrey Wade, Cedric H. David, 2024.
 
+# Excludes tests related to largest rivers, smallest rivers, and global
+# summary due to GitHub Actions storage limits.
+
 #*****************************************************************************
 #Publication message
 #*****************************************************************************
