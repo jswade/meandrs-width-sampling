@@ -25,7 +25,6 @@ echo "These files are under a CC BY-NC-SA 4.0 license."
 echo "Please cite these two DOIs if using these files for your publications."
 echo "********************"
 
-df -h
 
 #*****************************************************************************
 #Download MeanDRS Width Sampling Zenodo Repository to /output/
@@ -41,11 +40,11 @@ list=("riv_coast.zip"                                                          \
       "V_rivwidth_low.zip"                                                     \
       "V_rivwidth_nrm.zip"                                                     \
       "V_rivwidth_hig.zip"                                                     \
-      "global_summary.zip"                                                     \
       "cor_sens.zip"                                                           \
       "rivwidth_sens.zip"                                                      \
       )
 
+# Full download with largest_rivs/smallest_rivs/global_summary
 #list=("riv_coast.zip"                                                          \
 #      "Qout_rivwidth.zip"                                                      \
 #      "V_rivwidth_low.zip"                                                     \
@@ -79,8 +78,6 @@ do
 #-----------------------------------------------------------------------------
     find "${folder}" -type f ! -name '*11*' -exec rm {} +
     if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-    
-    df -h
     
 done
 
@@ -140,8 +137,6 @@ do
     find "${folder}" -type f ! -name '*11*' ! -path \
         '*/cat_MERIT_Hydro_v07_Basins_v01_perim/*' -exec rm {} +
     if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-    
-    df -h
 
 done
 

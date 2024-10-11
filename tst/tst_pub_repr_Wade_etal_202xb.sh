@@ -86,163 +86,163 @@ fi
 #*****************************************************************************
 unt=0
 
-#
-##*****************************************************************************
-##Identify rivers draining to the global coast: ENS/COR
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/riv_coast/cor"
-#mkdir -p "../output_test/riv_coast/uncor"
-#
-#echo "- Identifying coastal rivers: ENS/COR"
-#../src/mws_coastal_rivs.py                                                     \
-#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-#    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_11_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
-#    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing corrected coastal rivers file: COR (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                     \
-#    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing uncorrected coastal rivers file: ENS (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
-#    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Identify rivers draining to the global coast: Uncorrected VIC
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_VIC"
-#
-#echo "- Identifying coastal rivers: VIC"
-#../src/mws_coastal_rivs.py                                                     \
-#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-#    ../input/MeanDRS/Qout_VIC/Qout_pfaf_${pfaf}_GLDAS_VIC_M_1980-01_2009-12_utc.nc4 \
-#    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing uncorrected coastal rivers file: VIC (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
-#    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-##*****************************************************************************
-##Identify rivers draining to the global coast: Uncorrected CLSM
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_CLSM"
-#
-#echo "- Identifying coastal rivers: CLSM"
-#../src/mws_coastal_rivs.py                                                     \
-#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-#    ../input/MeanDRS/Qout_CLSM/Qout_pfaf_${pfaf}_GLDAS_CLSM_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing uncorrected coastal rivers file: CLSM (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-#    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Identify rivers draining to the global coast: Uncorrected NOAH
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_NOAH"
-#
-#echo "- Identifying coastal rivers: NOAH"
-#../src/mws_coastal_rivs.py                                                     \
-#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-#    ../input/MeanDRS/Qout_NOAH/Qout_pfaf_${pfaf}_GLDAS_NOAH_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing uncorrected coastal rivers file: NOAH (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-#    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
+
+#*****************************************************************************
+#Identify rivers draining to the global coast: ENS/COR
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/riv_coast/cor"
+mkdir -p "../output_test/riv_coast/uncor"
+
+echo "- Identifying coastal rivers: ENS/COR"
+../src/mws_coastal_rivs.py                                                     \
+    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_11_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
+    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
+    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing corrected coastal rivers file: COR (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                     \
+    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing uncorrected coastal rivers file: ENS (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
+    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Identify rivers draining to the global coast: Uncorrected VIC
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_VIC"
+
+echo "- Identifying coastal rivers: VIC"
+../src/mws_coastal_rivs.py                                                     \
+    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+    ../input/MeanDRS/Qout_VIC/Qout_pfaf_${pfaf}_GLDAS_VIC_M_1980-01_2009-12_utc.nc4 \
+    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing uncorrected coastal rivers file: VIC (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
+    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+#*****************************************************************************
+#Identify rivers draining to the global coast: Uncorrected CLSM
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_CLSM"
+
+echo "- Identifying coastal rivers: CLSM"
+../src/mws_coastal_rivs.py                                                     \
+    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+    ../input/MeanDRS/Qout_CLSM/Qout_pfaf_${pfaf}_GLDAS_CLSM_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing uncorrected coastal rivers file: CLSM (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Identify rivers draining to the global coast: Uncorrected NOAH
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_NOAH"
+
+echo "- Identifying coastal rivers: NOAH"
+../src/mws_coastal_rivs.py                                                     \
+    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+    ../input/MeanDRS/Qout_NOAH/Qout_pfaf_${pfaf}_GLDAS_NOAH_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing uncorrected coastal rivers file: NOAH (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
 #*****************************************************************************
 #Calculate discharge to ocean based on river width samples: ENS/COR
 #*****************************************************************************
@@ -859,914 +859,914 @@ fi
 #fi
 
 
-#*****************************************************************************
-#Calculate global summary terms for discharge to the ocean: ENS/COR
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/global_summary/Qout_rivwidth"
-
-echo "- Calculate global summary terms for discharge to the ocean"
-../src/mws_Q_summary.py                                                        \
-    ../output/Qout_rivwidth/                                                   \
-    ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_global.csv       \
-    ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv         \
-    ../output_test/global_summary/Qout_rivwidth/Qout_std.csv                   \
-    ../output_test/global_summary/Qout_rivwidth/Qout_std_prop.csv              \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_global.csv            \
-    ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_global.csv       \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth proportion file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv             \
-    ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv         \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/Qout_rivwidth/Qout_std.csv                        \
-    ../output_test/global_summary/Qout_rivwidth/Qout_std.csv                   \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. proportion file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/Qout_rivwidth/Qout_std_prop.csv                   \
-    ../output_test/global_summary/Qout_rivwidth/Qout_std_prop.csv              \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Calculate global summary terms for discharge to the ocean: VIC
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth"
-
-echo "- Calculate global summary terms for discharge to the ocean: VIC"
-../src/mws_Q_summary.py                                                        \
-    ../output/rivwidth_sens/Qout_rivwidth_VIC/                                 \
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_global_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_global_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_global_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth proportion file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. proportion file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Calculate global summary terms for discharge to the ocean: CLSM
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth"
-
-echo "- Calculate global summary terms for discharge to the ocean: CLSM"
-../src/mws_Q_summary.py                                                        \
-    ../output/rivwidth_sens/Qout_rivwidth_CLSM/                                \
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_global_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_global_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_global_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth proportion file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. proportion file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Calculate global summary terms for discharge to the ocean: NOAH
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth"
-
-echo "- Calculate global summary terms for discharge to the ocean: NOAH"
-../src/mws_Q_summary.py                                                        \
-    ../output/rivwidth_sens/Qout_rivwidth_NOAH/                                \
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_global_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_global_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_global_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth proportion file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. proportion file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Calculate global summary terms for discharge to the ocean: ENS/ENS
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/cor_sens/global_summary_ENS/Qout_rivwidth"
-
-echo "- Calculate global summary terms for discharge to the ocean: ENS"
-../src/mws_Q_summary.py                                                        \
-    ../output/cor_sens/Qout_rivwidth_ENS/                                      \
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_global_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_ENS.csv  \
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_global_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_global_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout rivwidth proportion file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_ENS.csv       \
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_ENS.csv  \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global Qout standard dev. proportion file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv  \
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Calculate global summary terms for total river volume: ENS/COR
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/global_summary/V_rivwidth_low"
-mkdir -p "../output_test/global_summary/V_rivwidth_nrm"
-mkdir -p "../output_test/global_summary/V_rivwidth_hig"
-
-echo "- Calculate global summary terms for river volume"
-../src/mws_V_summary.py                                                        \
-    ../output/V_rivwidth_low/                                                  \
-    ../output/V_rivwidth_nrm/                                                  \
-    ../output/V_rivwidth_hig/                                                  \
-    ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_global.csv     \
-    ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_global.csv     \
-    ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_global.csv     \
-    ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv       \
-    ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv       \
-    ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv       \
-    ../output_test/global_summary/V_rivwidth_low/V_low_std.csv                 \
-    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std.csv                 \
-    ../output_test/global_summary/V_rivwidth_hig/V_hig_std.csv                 \
-    ../output_test/global_summary/V_rivwidth_low/V_low_std_prop.csv            \
-    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv            \
-    ../output_test/global_summary/V_rivwidth_hig/V_hig_std_prop.csv            \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low rivwidth file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_low/V_rivwidth_low_global.csv          \
-    ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_global.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_global.csv          \
-    ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_global.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_hig/V_rivwidth_hig_global.csv          \
-    ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_global.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low rivwidth proportion file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv            \
-    ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv       \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth proportion file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv            \
-    ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv       \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth proportion file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv            \
-    ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv       \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_low/V_low_std.csv                      \
-    ../output_test/global_summary/V_rivwidth_low/V_low_std.csv                 \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_nrm/V_nrm_std.csv                      \
-    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std.csv                 \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_hig/V_hig_std.csv                      \
-    ../output_test/global_summary/V_rivwidth_hig/V_hig_std.csv                 \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. proportion file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_low/V_low_std_prop.csv                 \
-    ../output_test/global_summary/V_rivwidth_low/V_low_std_prop.csv            \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. proportion file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv                 \
-    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv            \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig standard dev. proportion file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/global_summary/V_rivwidth_hig/V_hig_std_prop.csv                 \
-    ../output_test/global_summary/V_rivwidth_hig/V_hig_std_prop.csv            \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Calculate global summary terms for total river volume: VIC
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low"
-mkdir -p "../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm"
-mkdir -p "../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig"
-
-echo "- Calculate global summary terms for river volume: VIC"
-../src/mws_V_summary.py                                                        \
-    ../output/rivwidth_sens/V_rivwidth_low_VIC/                                \
-    ../output/rivwidth_sens/V_rivwidth_nrm_VIC/                                \
-    ../output/rivwidth_sens/V_rivwidth_hig_VIC/                                \
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_global_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_global_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_global_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_prop_VIC_wid.csv\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low rivwidth file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_global_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_global_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_global_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_global_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_global_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_global_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low rivwidth proportion file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_prop_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth proportion file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth proportion file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_prop_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_VIC_wid.csv          \
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_VIC_wid.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_VIC_wid.csv          \
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_VIC_wid.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig standard dev. file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_VIC_wid.csv          \
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_VIC_wid.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. proportion file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_prop_VIC_wid.csv     \
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_prop_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. proportion file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv     \
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig standard dev. proportion file: VIC (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_prop_VIC_wid.csv     \
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_prop_VIC_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Calculate global summary terms for total river volume: CLSM
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low"
-mkdir -p "../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm"
-mkdir -p "../output_test/rivwidth_sens/global_summary_CLSM//V_rivwidth_hig"
-
-echo "- Calculate global summary terms for river volume: CLSM"
-../src/mws_V_summary.py                                                        \
-    ../output/rivwidth_sens/V_rivwidth_low_CLSM/                               \
-    ../output/rivwidth_sens/V_rivwidth_nrm_CLSM/                               \
-    ../output/rivwidth_sens/V_rivwidth_hig_CLSM/                               \
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_global_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_global_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_global_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_prop_CLSM_wid.csv\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low rivwidth file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_global_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_global_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_global_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_global_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_global_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_global_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low rivwidth proportion file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_prop_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth proportion file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth proportion file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_prop_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_CLSM_wid.csv          \
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_CLSM_wid.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_CLSM_wid.csv          \
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_CLSM_wid.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig standard dev. file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_CLSM_wid.csv          \
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_CLSM_wid.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. proportion file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_prop_CLSM_wid.csv     \
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_prop_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. proportion file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv     \
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig standard dev. proportion file: CLSM (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_prop_CLSM_wid.csv     \
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_prop_CLSM_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Calculate global summary terms for total river volume: NOAH
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low"
-mkdir -p "../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm"
-mkdir -p "../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig"
-
-echo "- Calculate global summary terms for river volume: NOAH"
-../src/mws_V_summary.py                                                        \
-    ../output/rivwidth_sens/V_rivwidth_low_NOAH/                               \
-    ../output/rivwidth_sens/V_rivwidth_nrm_NOAH/                               \
-    ../output/rivwidth_sens/V_rivwidth_hig_NOAH/                               \
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_global_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_global_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_global_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_prop_NOAH_wid.csv\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+##*****************************************************************************
+##Calculate global summary terms for discharge to the ocean: ENS/COR
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
 #
-echo "- Comparing global V_low rivwidth file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_global_NOAH_wid.csv\
-    ../output_test/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_global_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_global_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_global_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_global_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_global_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low rivwidth proportion file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_prop_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth proportion file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth proportion file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_prop_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_NOAH_wid.csv          \
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_NOAH_wid.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_NOAH_wid.csv          \
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_NOAH_wid.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig standard dev. file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_NOAH_wid.csv          \
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_NOAH_wid.csv     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. proportion file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_prop_NOAH_wid.csv     \
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_prop_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. proportion file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv     \
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig standard dev. proportion file: NOAH (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_prop_NOAH_wid.csv     \
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_prop_NOAH_wid.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/global_summary/Qout_rivwidth"
+#
+#echo "- Calculate global summary terms for discharge to the ocean"
+#../src/mws_Q_summary.py                                                        \
+#    ../output/Qout_rivwidth/                                                   \
+#    ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_global.csv       \
+#    ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv         \
+#    ../output_test/global_summary/Qout_rivwidth/Qout_std.csv                   \
+#    ../output_test/global_summary/Qout_rivwidth/Qout_std_prop.csv              \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_global.csv            \
+#    ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_global.csv       \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth proportion file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv             \
+#    ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv         \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/Qout_rivwidth/Qout_std.csv                        \
+#    ../output_test/global_summary/Qout_rivwidth/Qout_std.csv                   \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. proportion file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/Qout_rivwidth/Qout_std_prop.csv                   \
+#    ../output_test/global_summary/Qout_rivwidth/Qout_std_prop.csv              \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
 
 
-#*****************************************************************************
-#Calculate global summary terms for total river volume: ENS/ENS
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
+##*****************************************************************************
+##Calculate global summary terms for discharge to the ocean: VIC
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth"
+#
+#echo "- Calculate global summary terms for discharge to the ocean: VIC"
+#../src/mws_Q_summary.py                                                        \
+#    ../output/rivwidth_sens/Qout_rivwidth_VIC/                                 \
+#    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_global_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_global_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_global_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth proportion file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. proportion file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Calculate global summary terms for discharge to the ocean: CLSM
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth"
+#
+#echo "- Calculate global summary terms for discharge to the ocean: CLSM"
+#../src/mws_Q_summary.py                                                        \
+#    ../output/rivwidth_sens/Qout_rivwidth_CLSM/                                \
+#    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_global_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_global_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_global_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth proportion file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. proportion file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Calculate global summary terms for discharge to the ocean: NOAH
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth"
+#
+#echo "- Calculate global summary terms for discharge to the ocean: NOAH"
+#../src/mws_Q_summary.py                                                        \
+#    ../output/rivwidth_sens/Qout_rivwidth_NOAH/                                \
+#    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_global_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_global_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_global_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth proportion file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. proportion file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Calculate global summary terms for discharge to the ocean: ENS/ENS
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/cor_sens/global_summary_ENS/Qout_rivwidth"
+#
+#echo "- Calculate global summary terms for discharge to the ocean: ENS"
+#../src/mws_Q_summary.py                                                        \
+#    ../output/cor_sens/Qout_rivwidth_ENS/                                      \
+#    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_global_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_ENS.csv  \
+#    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_global_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_global_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout rivwidth proportion file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_ENS.csv       \
+#    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_ENS.csv  \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global Qout standard dev. proportion file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv  \
+#    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
 
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
 
-mkdir -p "../output_test/cor_sens/global_summary_ENS/V_rivwidth_low"
-mkdir -p "../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm"
-mkdir -p "../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig"
-
-echo "- Calculate global summary terms for river volume: ENS"
-../src/mws_V_summary.py                                                        \
-    ../output/cor_sens/V_rivwidth_low_ENS/                                     \
-    ../output/cor_sens/V_rivwidth_nrm_ENS/                                     \
-    ../output/cor_sens/V_rivwidth_hig_ENS/                                     \
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_global_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_global_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_global_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_prop_ENS.csv\
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low rivwidth file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_global_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_global_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_global_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_global_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_global_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_global_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low rivwidth proportion file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm rivwidth proportion file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig rivwidth proportion file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_ENS.csv     \
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_low standard dev. proportion file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_nrm standard dev. proportion file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global V_hig standard dev. proportion file: ENS (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_prop_ENS.csv\
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
+##*****************************************************************************
+##Calculate global summary terms for total river volume: ENS/COR
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/global_summary/V_rivwidth_low"
+#mkdir -p "../output_test/global_summary/V_rivwidth_nrm"
+#mkdir -p "../output_test/global_summary/V_rivwidth_hig"
+#
+#echo "- Calculate global summary terms for river volume"
+#../src/mws_V_summary.py                                                        \
+#    ../output/V_rivwidth_low/                                                  \
+#    ../output/V_rivwidth_nrm/                                                  \
+#    ../output/V_rivwidth_hig/                                                  \
+#    ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_global.csv     \
+#    ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_global.csv     \
+#    ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_global.csv     \
+#    ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv       \
+#    ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv       \
+#    ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv       \
+#    ../output_test/global_summary/V_rivwidth_low/V_low_std.csv                 \
+#    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std.csv                 \
+#    ../output_test/global_summary/V_rivwidth_hig/V_hig_std.csv                 \
+#    ../output_test/global_summary/V_rivwidth_low/V_low_std_prop.csv            \
+#    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv            \
+#    ../output_test/global_summary/V_rivwidth_hig/V_hig_std_prop.csv            \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low rivwidth file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_low/V_rivwidth_low_global.csv          \
+#    ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_global.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_global.csv          \
+#    ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_global.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_hig/V_rivwidth_hig_global.csv          \
+#    ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_global.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low rivwidth proportion file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv            \
+#    ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv       \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth proportion file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv            \
+#    ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv       \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth proportion file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv            \
+#    ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv       \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_low/V_low_std.csv                      \
+#    ../output_test/global_summary/V_rivwidth_low/V_low_std.csv                 \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_nrm/V_nrm_std.csv                      \
+#    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std.csv                 \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_hig/V_hig_std.csv                      \
+#    ../output_test/global_summary/V_rivwidth_hig/V_hig_std.csv                 \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. proportion file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_low/V_low_std_prop.csv                 \
+#    ../output_test/global_summary/V_rivwidth_low/V_low_std_prop.csv            \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. proportion file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv                 \
+#    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv            \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig standard dev. proportion file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/global_summary/V_rivwidth_hig/V_hig_std_prop.csv                 \
+#    ../output_test/global_summary/V_rivwidth_hig/V_hig_std_prop.csv            \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Calculate global summary terms for total river volume: VIC
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low"
+#mkdir -p "../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm"
+#mkdir -p "../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig"
+#
+#echo "- Calculate global summary terms for river volume: VIC"
+#../src/mws_V_summary.py                                                        \
+#    ../output/rivwidth_sens/V_rivwidth_low_VIC/                                \
+#    ../output/rivwidth_sens/V_rivwidth_nrm_VIC/                                \
+#    ../output/rivwidth_sens/V_rivwidth_hig_VIC/                                \
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_global_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_global_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_global_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_prop_VIC_wid.csv\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low rivwidth file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_global_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_global_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_global_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_global_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_global_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_global_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low rivwidth proportion file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_prop_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth proportion file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth proportion file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_prop_VIC_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_prop_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_VIC_wid.csv          \
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_VIC_wid.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_VIC_wid.csv          \
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_VIC_wid.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig standard dev. file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_VIC_wid.csv          \
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_VIC_wid.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. proportion file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_prop_VIC_wid.csv     \
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_prop_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. proportion file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv     \
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig standard dev. proportion file: VIC (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_prop_VIC_wid.csv     \
+#    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_prop_VIC_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Calculate global summary terms for total river volume: CLSM
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low"
+#mkdir -p "../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm"
+#mkdir -p "../output_test/rivwidth_sens/global_summary_CLSM//V_rivwidth_hig"
+#
+#echo "- Calculate global summary terms for river volume: CLSM"
+#../src/mws_V_summary.py                                                        \
+#    ../output/rivwidth_sens/V_rivwidth_low_CLSM/                               \
+#    ../output/rivwidth_sens/V_rivwidth_nrm_CLSM/                               \
+#    ../output/rivwidth_sens/V_rivwidth_hig_CLSM/                               \
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_global_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_global_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_global_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_prop_CLSM_wid.csv\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low rivwidth file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_global_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_global_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_global_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_global_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_global_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_global_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low rivwidth proportion file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_prop_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth proportion file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth proportion file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_prop_CLSM_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_prop_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_CLSM_wid.csv          \
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_CLSM_wid.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_CLSM_wid.csv          \
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_CLSM_wid.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig standard dev. file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_CLSM_wid.csv          \
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_CLSM_wid.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. proportion file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_prop_CLSM_wid.csv     \
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_prop_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. proportion file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv     \
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig standard dev. proportion file: CLSM (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_prop_CLSM_wid.csv     \
+#    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_prop_CLSM_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Calculate global summary terms for total river volume: NOAH
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low"
+#mkdir -p "../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm"
+#mkdir -p "../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig"
+#
+#echo "- Calculate global summary terms for river volume: NOAH"
+#../src/mws_V_summary.py                                                        \
+#    ../output/rivwidth_sens/V_rivwidth_low_NOAH/                               \
+#    ../output/rivwidth_sens/V_rivwidth_nrm_NOAH/                               \
+#    ../output/rivwidth_sens/V_rivwidth_hig_NOAH/                               \
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_global_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_global_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_global_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_prop_NOAH_wid.csv\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+##
+#echo "- Comparing global V_low rivwidth file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_global_NOAH_wid.csv\
+#    ../output_test/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_global_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_global_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_global_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_global_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_global_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low rivwidth proportion file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_prop_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth proportion file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth proportion file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_prop_NOAH_wid.csv\
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_prop_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_NOAH_wid.csv          \
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_NOAH_wid.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_NOAH_wid.csv          \
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_NOAH_wid.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig standard dev. file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_NOAH_wid.csv          \
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_NOAH_wid.csv     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. proportion file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_prop_NOAH_wid.csv     \
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_prop_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. proportion file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv     \
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig standard dev. proportion file: NOAH (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_prop_NOAH_wid.csv     \
+#    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_prop_NOAH_wid.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
+#
+#
+##*****************************************************************************
+##Calculate global summary terms for total river volume: ENS/ENS
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/cor_sens/global_summary_ENS/V_rivwidth_low"
+#mkdir -p "../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm"
+#mkdir -p "../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig"
+#
+#echo "- Calculate global summary terms for river volume: ENS"
+#../src/mws_V_summary.py                                                        \
+#    ../output/cor_sens/V_rivwidth_low_ENS/                                     \
+#    ../output/cor_sens/V_rivwidth_nrm_ENS/                                     \
+#    ../output/cor_sens/V_rivwidth_hig_ENS/                                     \
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_global_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_global_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_global_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_prop_ENS.csv\
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low rivwidth file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_global_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_global_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_global_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_global_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_global_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_global_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low rivwidth proportion file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm rivwidth proportion file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig rivwidth proportion file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_ENS.csv     \
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_low standard dev. proportion file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_nrm standard dev. proportion file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global V_hig standard dev. proportion file: ENS (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_prop_ENS.csv\
+#    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_prop_ENS.csv\
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
 
 
 ##*****************************************************************************

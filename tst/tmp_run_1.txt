@@ -1,0 +1,2 @@
+- Reading shapefiles
+- Clipping global coastline
