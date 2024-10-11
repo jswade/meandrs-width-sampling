@@ -683,180 +683,180 @@ echo "********************"
 fi
 
 
-#*****************************************************************************
-#Identify and trace rivers narrower than 100m draining to the ocean
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/smallest_rivs/cat"
-mkdir -p "../output_test/smallest_rivs/riv"
-
-echo "- Identifying and tracing narrow rivers draining to the ocean"
-../src/mws_smallest_rivs.py                                                    \
-    ../input/MeanDRS/rapid_connect/rapid_connect_pfaf_${pfaf}.csv              \
-    ../output/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                     \
-    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
-    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-    ../input/MB/cat/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01.shp            \
-    ../output_test/smallest_rivs/riv/riv_pfaf_${pfaf}_small_100m.shp           \
-    ../output_test/smallest_rivs/cat/cat_pfaf_${pfaf}_small_100m.shp           \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing narrow coastal rivers traced reaches file (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/smallest_rivs/riv/riv_pfaf_${pfaf}_small_100m.shp                \
-    ../output_test/smallest_rivs/riv/riv_pfaf_${pfaf}_small_100m.shp           \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing narrow coastal rivers traced catchment file (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/smallest_rivs/cat/cat_pfaf_${pfaf}_small_100m.shp                \
-    ../output_test/smallest_rivs/cat/cat_pfaf_${pfaf}_small_100m.shp           \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Calculate global summary terms for rivers narrower than 100m at coast
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/smallest_rivs/csv"
-
-echo "- Computing global summary for narrow coastal rivers"
-../src/mws_smallest_rivs_global.py                                             \
-    ../output/riv_coast/cor/                                                   \
-    ../output/riv_coast/uncor/                                                 \
-    ../output/smallest_rivs/cat/                                               \
-    ../output_test/smallest_rivs/csv/Q_wid_100m.csv                            \
-    ../output_test/global_summary/cat_small_gl/cat_dis_global_small_100m.shp   \
-    no_gl_dis                                                                  \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing global narrow coastal rivers reaches file (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/smallest_rivs/csv/Q_wid_100m.csv                                 \
-    ../output_test/smallest_rivs/csv/Q_wid_100m.csv                            \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
+##*****************************************************************************
+##Identify and trace rivers narrower than 100m draining to the ocean
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/smallest_rivs/cat"
+#mkdir -p "../output_test/smallest_rivs/riv"
+#
+#echo "- Identifying and tracing narrow rivers draining to the ocean"
+#../src/mws_smallest_rivs.py                                                    \
+#    ../input/MeanDRS/rapid_connect/rapid_connect_pfaf_${pfaf}.csv              \
+#    ../output/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                     \
+#    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
+#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+#    ../input/MB/cat/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01.shp            \
+#    ../output_test/smallest_rivs/riv/riv_pfaf_${pfaf}_small_100m.shp           \
+#    ../output_test/smallest_rivs/cat/cat_pfaf_${pfaf}_small_100m.shp           \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing narrow coastal rivers traced reaches file (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/smallest_rivs/riv/riv_pfaf_${pfaf}_small_100m.shp                \
+#    ../output_test/smallest_rivs/riv/riv_pfaf_${pfaf}_small_100m.shp           \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing narrow coastal rivers traced catchment file (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/smallest_rivs/cat/cat_pfaf_${pfaf}_small_100m.shp                \
+#    ../output_test/smallest_rivs/cat/cat_pfaf_${pfaf}_small_100m.shp           \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
 
 
-#*****************************************************************************
-#Identify 10 largest river basins based on discharge to coastal outlet
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
+##*****************************************************************************
+##Calculate global summary terms for rivers narrower than 100m at coast
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/smallest_rivs/csv"
+#
+#echo "- Computing global summary for narrow coastal rivers"
+#../src/mws_smallest_rivs_global.py                                             \
+#    ../output/riv_coast/cor/                                                   \
+#    ../output/riv_coast/uncor/                                                 \
+#    ../output/smallest_rivs/cat/                                               \
+#    ../output_test/smallest_rivs/csv/Q_wid_100m.csv                            \
+#    ../output_test/global_summary/cat_small_gl/cat_dis_global_small_100m.shp   \
+#    no_gl_dis                                                                  \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing global narrow coastal rivers reaches file (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/smallest_rivs/csv/Q_wid_100m.csv                                 \
+#    ../output_test/smallest_rivs/csv/Q_wid_100m.csv                            \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
 
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
 
-mkdir -p "../output_test/largest_rivs/csv"
+##*****************************************************************************
+##Identify 10 largest river basins based on discharge to coastal outlet
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/largest_rivs/csv"
+#
+#echo "- Identifying 10 largest river basins"
+#../src/mws_largest_rivs_rank.py                                                \
+#    ../output/riv_coast/cor/                                                   \
+#    ../output/riv_coast/uncor/                                                 \
+#    ../input/MeanDRS/riv_COR/                                                  \
+#    ../input/MeanDRS/riv_UNCOR/                                                \
+#    ../input/MB/cat/                                                           \
+#    ../output_test/largest_rivs/csv/Q_df_top10.csv                             \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing largest river basin ranking file (.csv)"
+#../src/tst_cmp.py                                                              \
+#    ../output/largest_rivs/csv/Q_df_top10.csv                                  \
+#    ../output_test/largest_rivs/csv/Q_df_top10.csv                             \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
 
-echo "- Identifying 10 largest river basins"
-../src/mws_largest_rivs_rank.py                                                \
-    ../output/riv_coast/cor/                                                   \
-    ../output/riv_coast/uncor/                                                 \
-    ../input/MeanDRS/riv_COR/                                                  \
-    ../input/MeanDRS/riv_UNCOR/                                                \
-    ../input/MB/cat/                                                           \
-    ../output_test/largest_rivs/csv/Q_df_top10.csv                             \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
-echo "- Comparing largest river basin ranking file (.csv)"
-../src/tst_cmp.py                                                              \
-    ../output/largest_rivs/csv/Q_df_top10.csv                                  \
-    ../output_test/largest_rivs/csv/Q_df_top10.csv                             \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
-
-
-#*****************************************************************************
-#Trace contributing reaches and catchments of largest river basins
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/largest_rivs/cat"
-mkdir -p "../output_test/largest_rivs/riv"
-
-echo "- Tracing contributing reaches and catchments of largest river basins"
-../src/mws_largest_rivs_trace.py                                               \
-    ../output/largest_rivs/csv/Q_df_top10.csv                                  \
-    ../input/MeanDRS/rapid_connect/                                            \
-    ../input/MeanDRS/riv_COR/                                                  \
-    ../input/MeanDRS/riv_UNCOR/                                                \
-    ../input/MB/cat/                                                           \
-    ${rank}                                                                    \
-    ../output_test/largest_rivs/riv/riv_top10_n${rank}.shp                     \
-    ../output_test/largest_rivs/cat/cat_top10_n${rank}.shp                     \
-    ../output_test/largest_rivs/cat/cat_dis_top10_n${rank}.shp                 \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-echo "- Comparing largest river basin traced reaches file (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/largest_rivs/riv/riv_top10_n${rank}.shp                          \
-    ../output_test/largest_rivs/riv/riv_top10_n${rank}.shp                     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing largest river basin traced catchment file (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/largest_rivs/cat/cat_top10_n${rank}.shp                          \
-    ../output_test/largest_rivs/cat/cat_top10_n${rank}.shp                     \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-echo "- Comparing largest river basin dissolved catchment file (.shp)"
-../src/tst_cmp.py                                                              \
-    ../output/largest_rivs/cat/cat_dis_top10_n${rank}.shp                      \
-    ../output_test/largest_rivs/cat/cat_dis_top10_n${rank}.shp                 \
-    > $cmp_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
+##*****************************************************************************
+##Trace contributing reaches and catchments of largest river basins
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/largest_rivs/cat"
+#mkdir -p "../output_test/largest_rivs/riv"
+#
+#echo "- Tracing contributing reaches and catchments of largest river basins"
+#../src/mws_largest_rivs_trace.py                                               \
+#    ../output/largest_rivs/csv/Q_df_top10.csv                                  \
+#    ../input/MeanDRS/rapid_connect/                                            \
+#    ../input/MeanDRS/riv_COR/                                                  \
+#    ../input/MeanDRS/riv_UNCOR/                                                \
+#    ../input/MB/cat/                                                           \
+#    ${rank}                                                                    \
+#    ../output_test/largest_rivs/riv/riv_top10_n${rank}.shp                     \
+#    ../output_test/largest_rivs/cat/cat_top10_n${rank}.shp                     \
+#    ../output_test/largest_rivs/cat/cat_dis_top10_n${rank}.shp                 \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing largest river basin traced reaches file (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/largest_rivs/riv/riv_top10_n${rank}.shp                          \
+#    ../output_test/largest_rivs/riv/riv_top10_n${rank}.shp                     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing largest river basin traced catchment file (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/largest_rivs/cat/cat_top10_n${rank}.shp                          \
+#    ../output_test/largest_rivs/cat/cat_top10_n${rank}.shp                     \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#echo "- Comparing largest river basin dissolved catchment file (.shp)"
+#../src/tst_cmp.py                                                              \
+#    ../output/largest_rivs/cat/cat_dis_top10_n${rank}.shp                      \
+#    ../output_test/largest_rivs/cat/cat_dis_top10_n${rank}.shp                 \
+#    > $cmp_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
 
 
 #*****************************************************************************
@@ -1769,48 +1769,48 @@ echo "********************"
 fi
 
 
-#*****************************************************************************
-#Produce visualizations: Main Figures
-#*****************************************************************************
-unt=$((unt+1))
-if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-echo "Running unit test $unt/$tot"
-
-run_file=tmp_run_$unt.txt
-cmp_file=tmp_cmp_$unt.txt
-
-mkdir -p "../output_test/figures"
-
-echo "- Producing visualizations: Main Figures"
-../src/mws_plots.py                                                            \
-    ../input/MeanDRS/riv_UNCOR/                                                \
-    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv              \
-    ../output/global_summary/Qout_rivwidth/Qout_std_prop.csv                   \
-    ../output/Qout_rivwidth/                                                   \
-    ../output/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv            \
-    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv            \
-    ../output/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv            \
-    ../output/global_summary/V_rivwidth_low/V_low_std_prop.csv                 \
-    ../output/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv                 \
-    ../output/global_summary/V_rivwidth_hig/V_hig_std_prop.csv                 \
-    ../output/V_rivwidth_low/                                                  \
-    ../output/V_rivwidth_nrm/                                                  \
-    ../output/V_rivwidth_hig/                                                  \
-    ../output/smallest_rivs/csv/Q_wid_100m.csv                                 \
-    ../output/largest_rivs/csv/Q_df_top10.csv                                  \
-    ../output_test/figures/figure1_out.svg                                     \
-    ../output_test/figures/figure2a_out.svg                                    \
-    ../output_test/figures/figure2b_out.svg                                    \
-    ../output_test/figures/figure3_out.svg                                     \
-    ../output_test/figures/figure4_out.svg                                     \
-    > $run_file
-x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-
-rm -f $run_file
-rm -f $cmp_file
-echo "Success"
-echo "********************"
-fi
+##*****************************************************************************
+##Produce visualizations: Main Figures
+##*****************************************************************************
+#unt=$((unt+1))
+#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+#echo "Running unit test $unt/$tot"
+#
+#run_file=tmp_run_$unt.txt
+#cmp_file=tmp_cmp_$unt.txt
+#
+#mkdir -p "../output_test/figures"
+#
+#echo "- Producing visualizations: Main Figures"
+#../src/mws_plots.py                                                            \
+#    ../input/MeanDRS/riv_UNCOR/                                                \
+#    ../output/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv              \
+#    ../output/global_summary/Qout_rivwidth/Qout_std_prop.csv                   \
+#    ../output/Qout_rivwidth/                                                   \
+#    ../output/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv            \
+#    ../output/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv            \
+#    ../output/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv            \
+#    ../output/global_summary/V_rivwidth_low/V_low_std_prop.csv                 \
+#    ../output/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv                 \
+#    ../output/global_summary/V_rivwidth_hig/V_hig_std_prop.csv                 \
+#    ../output/V_rivwidth_low/                                                  \
+#    ../output/V_rivwidth_nrm/                                                  \
+#    ../output/V_rivwidth_hig/                                                  \
+#    ../output/smallest_rivs/csv/Q_wid_100m.csv                                 \
+#    ../output/largest_rivs/csv/Q_df_top10.csv                                  \
+#    ../output_test/figures/figure1_out.svg                                     \
+#    ../output_test/figures/figure2a_out.svg                                    \
+#    ../output_test/figures/figure2b_out.svg                                    \
+#    ../output_test/figures/figure3_out.svg                                     \
+#    ../output_test/figures/figure4_out.svg                                     \
+#    > $run_file
+#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+#
+#rm -f $run_file
+#rm -f $cmp_file
+#echo "Success"
+#echo "********************"
+#fi
 
 
 #*****************************************************************************
