@@ -259,7 +259,7 @@ cmp_file=tmp_cmp_$unt.txt
 mkdir -p "../output_test/Qout_rivwidth"
 
 echo "- Calculate discharge to ocean for river width samples: ENS/COR"
-python ../src/mws_rivwidth_Qout.py                                             \
+../src/mws_rivwidth_Qout.py                                                    \
     ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
     ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
     ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
@@ -293,7 +293,7 @@ cmp_file=tmp_cmp_$unt.txt
 mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_VIC/"
 
 echo "- Calculate discharge to ocean for river width samples: VIC"
-python ../src/mws_rivwidth_Qout.py                                             \
+../src/mws_rivwidth_Qout.py                                                    \
     ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
     ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
     ../output_test/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
@@ -327,7 +327,7 @@ cmp_file=tmp_cmp_$unt.txt
 mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_CLSM/"
 
 echo "- Calculate discharge to ocean for river width samples: CLSM"
-python ../src/mws_rivwidth_Qout.py                                             \
+../src/mws_rivwidth_Qout.py                                                    \
     ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
     ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
     ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
@@ -361,7 +361,7 @@ cmp_file=tmp_cmp_$unt.txt
 mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_NOAH/"
 
 echo "- Calculate discharge to ocean for river width samples: NOAH"
-python ../src/mws_rivwidth_Qout.py                                             \
+../src/mws_rivwidth_Qout.py                                                    \
     ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
     ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
     ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
@@ -395,7 +395,7 @@ cmp_file=tmp_cmp_$unt.txt
 mkdir -p "../output_test/cor_sens/Qout_rivwidth_ENS/"
 
 echo "- Calculate discharge to ocean for river width samples: ENS"
-python ../src/mws_rivwidth_Qout.py                                             \
+../src/mws_rivwidth_Qout.py                                                    \
     ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
     ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
     ../output_test/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv\
