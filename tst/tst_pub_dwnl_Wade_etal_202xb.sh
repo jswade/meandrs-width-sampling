@@ -14,9 +14,9 @@
 # - 44 if one download is not successful
 #Author:
 #Jeffrey Wade, Cedric H. David, 2024.
-
-# Excludes tests related to largest rivers, smallest rivers, and global
-# summary due to GitHub Actions storage limits.
+#
+# Excludes tests (15-31) related to largest rivers, smallest rivers, and
+# global summary due to GitHub Actions storage limits.
 
 #*****************************************************************************
 #Publication message
