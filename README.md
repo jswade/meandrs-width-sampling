@@ -1,5 +1,5 @@
 # MERIT-SWORD
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14538184.svg)](https://doi.org/XXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14538184.svg)](https://doi.org/10.5281/zenodo.14538184)
 
 [![License (3-Clause BSD)](https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg)](https://github.com/jswade/meandrs-width-sampling/blob/main/LICENSE)
 
