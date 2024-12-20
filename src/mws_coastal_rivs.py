@@ -22,7 +22,6 @@ import shapely.ops
 import netCDF4 as nc
 import numpy as np
 import sys
-import copy
 
 
 # ******************************************************************************
@@ -32,17 +31,9 @@ import copy
 # 2 - cat_perim_shp
 # 3 - riv_cor_shp
 # 4 - riv_uncor_shp
-# 5 - Qout_uncor_nc
+# 5 - Qout_uncor_shp
 # 6 - riv_cst_cor_out
 # 7 - riv_cst_uncor_out
-
-# cat_dis_shp = '/Users/jwade/jpl/computing/meandrs/v0.4/github/meandrs-width-sampling/input/MeanDRS/cat_disso/cat_pfaf_11_MERIT_Hydro_v07_Basins_v01_disso.shp'
-# cat_perim_shp = '/Users/jwade/jpl/computing/meandrs/v0.4/github/meandrs-width-sampling/input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp'
-# riv_cor_shp = '/Users/jwade/jpl/computing/meandrs/v0.4/github/meandrs-width-sampling/input/MeanDRS/riv_COR/riv_pfaf_11_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp'
-# riv_uncor_shp = '/Users/jwade/jpl/computing/meandrs/v0.4/github/meandrs-width-sampling/input/MeanDRS/riv_UNCOR/riv_pfaf_11_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp'
-# Qout_uncor_nc = '/Users/jwade/jpl/computing/meandrs/v0.4/github/meandrs-width-sampling/input/MeanDRS/Qout_VIC/Qout_pfaf_11_GLDAS_VIC_M_1980-01_2009-12_utc.nc4'
-# riv_cst_cor_out = 
-# riv_cst_uncor_out = '/Users/jwade/jpl/computing/meandrs/v0.4/github/meandrs-width-sampling/output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_11_VIC.shp'
 
 
 # ******************************************************************************
@@ -284,7 +275,7 @@ else:
                     # Get index of location in riv_cst
                     riv_ind = riv_cst.index(riv_fea['properties']['COMID'])
                     # Copy features
-                    new_riv_fea = copy.deepcopy(riv_fea)
+                    new_riv_fea = riv_fea.copy()
                     # Replace meanQ value
                     new_riv_fea['properties']['meanQ'] =                       \
                         float(Qout_cst_mean[riv_ind])

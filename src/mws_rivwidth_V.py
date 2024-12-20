@@ -195,12 +195,8 @@ def calcV(fp_in, fp_out):
     # Write model V values to csv for each pfaf
     # --------------------------------------------------------------------------
     # Set index and column names
-    time_nc_series = pd.Series(time_nc).apply(lambda x:
-                                              datetime.datetime.
-                                              utcfromtimestamp(x))
-    time_nc_series = time_nc_series.dt.tz_localize('UTC').\
-        dt.tz_convert('America/Los_Angeles')
-    V_df.index = time_nc_series.dt.tz_localize(None)
+    time_nc_ser = pd.Series(time_nc)
+    V_df.index = time_nc_ser.apply(lambda x: datetime.datetime.fromtimestamp(x))
     V_df.index.name = 'time'
 
     # Write to csv

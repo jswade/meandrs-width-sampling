@@ -32,12 +32,12 @@ import os
 # 7 - V_low_prop_out
 # 8 - V_nrm_prop_out
 # 9 - V_hig_prop_out
-# 10 - V_low_std_out
-# 11 - V_nrm_std_out
-# 12 - V_hig_std_out
-# 13 - V_low_std_prop_out
-# 14 - V_nrm_std_prop_out
-# 15 - V_hig_std_prop_out
+# 10 - V_low_range_out
+# 11 - V_nrm_range_out
+# 12 - V_hig_range_out
+# 13 - V_low_range_prop_out
+# 14 - V_nrm_range_prop_out
+# 15 - V_hig_range_prop_out
 
 
 # ******************************************************************************
@@ -57,12 +57,12 @@ V_hig_out = sys.argv[6]
 V_low_prop_out = sys.argv[7]
 V_nrm_prop_out = sys.argv[8]
 V_hig_prop_out = sys.argv[9]
-V_low_std_out = sys.argv[10]
-V_nrm_std_out = sys.argv[11]
-V_hig_std_out = sys.argv[12]
-V_low_std_prop_out = sys.argv[13]
-V_nrm_std_prop_out = sys.argv[14]
-V_hig_std_prop_out = sys.argv[15]
+V_low_range_out = sys.argv[10]
+V_nrm_range_out = sys.argv[11]
+V_hig_range_out = sys.argv[12]
+V_low_range_prop_out = sys.argv[13]
+V_nrm_range_prop_out = sys.argv[14]
+V_hig_range_prop_out = sys.argv[15]
 
 
 # ******************************************************************************
@@ -130,7 +130,7 @@ step = 5
 wid_scen = list(range(n_s, -1, -step))
 
 
-def Vsum(V_in, V_out, V_prop_out, V_std_out, V_std_prop_out):
+def Vsum(V_in, V_out, V_prop_out, V_range_out, V_range_prop_out):    
 
     # Create dataframe to store V values for each region
     V_df = pd.DataFrame(index=["wid_" + str(x) for x in
@@ -179,25 +179,35 @@ def Vsum(V_in, V_out, V_prop_out, V_std_out, V_std_prop_out):
     # --------------------------------------------------------------------------
     # Calculate standard deviation of each river width scenario
     # --------------------------------------------------------------------------
-    # Summarize V STD for river width scenarios
-    V_std = np.std(V_global.iloc[:, 1:], axis=0)
+    # Summarize V range for river width scenarios
+    V_range = []
+    chunk = 12
+    for i in range(1, V_global.shape[1]):
+        V_slice = V_global.iloc[:, i].values.reshape(-1, chunk)
+        V_range.append(np.mean(V_slice.max(axis=1) - V_slice.min(axis=1)))
 
-    # Calculate proportion of V std deviation captured by each scenario
-    V_std_prop = 100 * V_std / V_std.iloc[len(V_std)-1]
+    # Calculate proportion of V range of each scenario compared to global range
+    V_range_prop = 100 * pd.Series(V_range/V_range[-1])
+    V_range = pd.Series(V_range)
 
     # --------------------------------------------------------------------------
     # Write files
     # --------------------------------------------------------------------------
-    V_std.to_csv(V_std_out)
-    V_std_prop.to_csv(V_std_prop_out)
+    V_range.to_csv(V_range_out)
+    V_range_prop.to_csv(V_range_prop_out)
 
 
 # ------------------------------------------------------------------------------
 # Run volume summary functions
 # ------------------------------------------------------------------------------
 # V_low
-Vsum(V_rivwid_low, V_low_out, V_low_prop_out, V_low_std_out, V_low_std_prop_out)
+Vsum(V_rivwid_low, V_low_out, V_low_prop_out, V_low_range_out,
+     V_low_range_prop_out)
+
 # V_nrm
-Vsum(V_rivwid_nrm, V_nrm_out, V_nrm_prop_out, V_nrm_std_out, V_nrm_std_prop_out)
+Vsum(V_rivwid_nrm, V_nrm_out, V_nrm_prop_out, V_nrm_range_out,
+     V_nrm_range_prop_out)
+
 # V_hig
-Vsum(V_rivwid_hig, V_hig_out, V_hig_prop_out, V_hig_std_out, V_hig_std_prop_out)
+Vsum(V_rivwid_hig, V_hig_out, V_hig_prop_out, V_hig_range_out,
+     V_hig_range_prop_out)

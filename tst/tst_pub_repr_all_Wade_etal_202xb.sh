@@ -142,6 +142,70 @@ rank=(
       1
       )
 
+reg=(
+     "af"
+     "af"
+     "af"
+     "af"
+     "af"
+     "af"
+     "af"
+     "af"
+     "eu"
+     "eu"
+     "eu"
+     "eu"
+     "eu"
+     "eu"
+     "eu"
+     "eu"
+     "eu"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "as"
+     "oc"
+     "oc"
+     "oc"
+     "oc"
+     "oc"
+     "oc"
+     "oc"
+     "sa"
+     "sa"
+     "sa"
+     "sa"
+     "sa"
+     "sa"
+     "sa"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     "na"
+     )
+     
 
 #*****************************************************************************
 #Initialize count for unit tests
@@ -773,8 +837,8 @@ echo "- Calculate global summary terms for discharge to the ocean"
     ../output_test/Qout_rivwidth/                                              \
     ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_global.csv       \
     ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv         \
-    ../output_test/global_summary/Qout_rivwidth/Qout_std.csv                   \
-    ../output_test/global_summary/Qout_rivwidth/Qout_std_prop.csv              \
+    ../output_test/global_summary/Qout_rivwidth/Qout_range.csv                 \
+    ../output_test/global_summary/Qout_rivwidth/Qout_range_prop.csv            \
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -800,8 +864,8 @@ echo "- Calculate global summary terms for discharge to the ocean: VIC"
     ../output_test/rivwidth_sens/Qout_rivwidth_VIC/                            \
     ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_global_VIC_wid.csv\
     ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_range_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_range_prop_VIC_wid.csv\
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -827,8 +891,8 @@ echo "- Calculate global summary terms for discharge to the ocean: CLSM"
     ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/                           \
     ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_global_CLSM_wid.csv\
     ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_range_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_range_prop_CLSM_wid.csv\
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -854,8 +918,8 @@ echo "- Calculate global summary terms for discharge to the ocean: NOAH"
     ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/                           \
     ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_global_NOAH_wid.csv\
     ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_range_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_range_prop_NOAH_wid.csv\
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -881,8 +945,8 @@ echo "- Calculate global summary terms for discharge to the ocean: ENS"
     ../output_test/cor_sens/Qout_rivwidth_ENS/                                 \
     ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_global_ENS.csv\
     ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_ENS.csv  \
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv\
+    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_range_ENS.csv  \
+    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_range_prop_ENS.csv\
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -916,12 +980,12 @@ echo "- Calculate global summary terms for river volume"
     ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv       \
     ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv       \
     ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv       \
-    ../output_test/global_summary/V_rivwidth_low/V_low_std.csv                 \
-    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std.csv                 \
-    ../output_test/global_summary/V_rivwidth_hig/V_hig_std.csv                 \
-    ../output_test/global_summary/V_rivwidth_low/V_low_std_prop.csv            \
-    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv            \
-    ../output_test/global_summary/V_rivwidth_hig/V_hig_std_prop.csv            \
+    ../output_test/global_summary/V_rivwidth_low/V_low_range.csv               \
+    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_range.csv               \
+    ../output_test/global_summary/V_rivwidth_hig/V_hig_range.csv               \
+    ../output_test/global_summary/V_rivwidth_low/V_low_range_prop.csv          \
+    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_range_prop.csv          \
+    ../output_test/global_summary/V_rivwidth_hig/V_hig_range_prop.csv          \
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -955,12 +1019,12 @@ echo "- Calculate global summary terms for river volume: VIC"
     ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_rivwidth_low_prop_VIC_wid.csv\
     ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
     ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_rivwidth_hig_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_std_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_std_prop_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_range_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_range_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_range_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_low/V_low_range_prop_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_range_prop_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_hig/V_hig_range_prop_VIC_wid.csv\
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -994,12 +1058,12 @@ echo "- Calculate global summary terms for river volume: CLSM"
     ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_rivwidth_low_prop_CLSM_wid.csv\
     ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
     ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_rivwidth_hig_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_std_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_std_prop_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_range_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_range_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_range_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_low/V_low_range_prop_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_range_prop_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_hig/V_hig_range_prop_CLSM_wid.csv\
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -1033,12 +1097,12 @@ echo "- Calculate global summary terms for river volume: NOAH"
     ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_rivwidth_low_prop_NOAH_wid.csv\
     ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
     ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_rivwidth_hig_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_std_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_std_prop_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_range_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_range_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_range_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_low/V_low_range_prop_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_range_prop_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_hig/V_hig_range_prop_NOAH_wid.csv\
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -1072,12 +1136,12 @@ echo "- Calculate global summary terms for river volume: ENS"
     ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_rivwidth_low_prop_ENS.csv\
     ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
     ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_rivwidth_hig_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_std_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_std_prop_ENS.csv\
+    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_range_ENS.csv\
+    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_range_ENS.csv\
+    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_range_ENS.csv\
+    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_low/V_low_range_prop_ENS.csv\
+    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_range_prop_ENS.csv\
+    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_hig/V_hig_range_prop_ENS.csv\
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
@@ -1088,7 +1152,39 @@ fi
 
 
 #*****************************************************************************
-Produce visualizations: Main Figures
+#Validate MeanDRS Width Estimates Against GRWL
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+
+mkdir -p "../output_test/width_val"
+
+echo "- Validate MeanDRS Width Estimates Against GRWL"
+for ((i = 0; i < ${#pfaf[@]}; i++)); do
+
+    echo $i
+
+    ../src/mws_width_val.py                                                    \
+        ../input/MERIT-SWORD/ms_translate/sword_to_mb/sword_to_mb_pfaf_${pfaf[i]}_translate.nc\
+        ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf[i]}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+        ../input/SWORD/${reg[i]}_sword_reaches_hb${pfaf[i]}_v16.shp            \
+        ../output_test/width_val/width_validation_pfaf_${pfaf[i]}.csv          \
+        > $run_file
+    x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+done
+
+rm -f $run_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+# Produce visualizations: Main Figures
 #*****************************************************************************
 unt=$((unt+1))
 if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
@@ -1102,14 +1198,14 @@ echo "- Producing visualizations"
 ../src/mws_plots.py                                                            \
     ../input/MeanDRS/riv_UNCOR/                                                \
     ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv         \
-    ../output_test/global_summary/Qout_rivwidth/Qout_std_prop.csv              \
+    ../output_test/global_summary/Qout_rivwidth/Qout_range_prop.csv            \
     ../output_test/Qout_rivwidth/                                              \
     ../output_test/global_summary/V_rivwidth_low/V_rivwidth_low_prop.csv       \
     ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv       \
     ../output_test/global_summary/V_rivwidth_hig/V_rivwidth_hig_prop.csv       \
-    ../output_test/global_summary/V_rivwidth_low/V_low_std_prop.csv            \
-    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv            \
-    ../output_test/global_summary/V_rivwidth_hig/V_hig_std_prop.csv            \
+    ../output_test/global_summary/V_rivwidth_low/V_low_range_prop.csv          \
+    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_range_prop.csv          \
+    ../output_test/global_summary/V_rivwidth_hig/V_hig_range_prop.csv          \
     ../output_test/V_rivwidth_low/                                             \
     ../output_test/V_rivwidth_nrm/                                             \
     ../output_test/V_rivwidth_hig/                                             \
@@ -1143,21 +1239,21 @@ mkdir -p "../output_test/figures"
 echo "- Producing visualizations: Supplemental Figures Part 1"
 ../src/mws_plots_supp1.py                                                      \
     ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv         \
-    ../output_test/global_summary/Qout_rivwidth/Qout_std_prop.csv              \
+    ../output_test/global_summary/Qout_rivwidth/Qout_range_prop.csv            \
     ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_rivwidth_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_std_prop_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/Qout_rivwidth/Qout_range_prop_VIC_wid.csv\
     ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_rivwidth_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_std_prop_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/Qout_rivwidth/Qout_range_prop_CLSM_wid.csv\
     ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_rivwidth_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_std_prop_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/Qout_rivwidth/Qout_range_prop_NOAH_wid.csv\
     ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv       \
-    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv            \
+    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_range_prop.csv          \
     ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_rivwidth_nrm_prop_VIC_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_std_prop_VIC_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_VIC/V_rivwidth_nrm/V_nrm_range_prop_VIC_wid.csv\
     ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_rivwidth_nrm_prop_CLSM_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_std_prop_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_CLSM/V_rivwidth_nrm/V_nrm_range_prop_CLSM_wid.csv\
     ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_rivwidth_nrm_prop_NOAH_wid.csv\
-    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_std_prop_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/global_summary_NOAH/V_rivwidth_nrm/V_nrm_range_prop_NOAH_wid.csv\
     ../output_test/figures/figure_s1_out.svg                                   \
     ../output_test/figures/figure_s2_out.svg                                   \
     ../output_test/figures/figure_s3_out.svg                                   \
@@ -1186,17 +1282,45 @@ mkdir -p "../output_test/figures"
 echo "- Producing visualizations: Supplemental Figures Part 2"
 ../src/mws_plots_supp2.py                                                      \
     ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_rivwidth_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_std_prop_ENS.csv\
+    ../output_test/cor_sens/global_summary_ENS/Qout_rivwidth/Qout_range_prop_ENS.csv\
     ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_rivwidth_nrm_prop_ENS.csv\
-    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_std_prop_ENS.csv\
+    ../output_test/cor_sens/global_summary_ENS/V_rivwidth_nrm/V_nrm_range_prop_ENS.csv\
     ../output_test/global_summary/Qout_rivwidth/Qout_rivwidth_prop.csv         \
-    ../output_test/global_summary/Qout_rivwidth/Qout_std_prop.csv              \
+    ../output_test/global_summary/Qout_rivwidth/Qout_range_prop.csv            \
     ../output_test/global_summary/V_rivwidth_nrm/V_rivwidth_nrm_prop.csv       \
-    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_std_prop.csv            \
+    ../output_test/global_summary/V_rivwidth_nrm/V_nrm_range_prop.csv          \
     ../output_test/figures/figure_s5_out.svg                                   \
     ../output_test/figures/figure_s6_out.svg                                   \
     ../output_test/figures/figure_s7_out.svg                                   \
     ../output_test/figures/figure_s8_out.svg                                   \
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Produce visualizations: Supplemental 3
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/figures"
+
+echo "- Producing visualizations: Supplemental Figures Part 3"
+../src/mws_plots_supp3.py                                                      \
+    ../output_test/width_val/                                                  \
+    ../input/MeanDRS/riv_UNCOR/                                                \
+    ../output_test/figures/figure_s9_out.svg                                   \
+    ../output_test/figures/figure_s10_out.svg                                  \
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 

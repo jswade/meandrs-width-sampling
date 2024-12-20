@@ -7,22 +7,19 @@
 #This script downloads all testing pfaf region 11 files corresponding to:
 #DOI: xx.xxxx/xxxxxxxxxxxx
 #The files used are available from:
-#DOI: 10.5281/zenodo.13381368
+#DOI: 10.5281/zenodo.14538184
 #The script returns the following exit codes
-# - 0  if all downloads were successful
+# - 0  if all downloads are successful
 # - 22 if there was a conversion problem
 # - 44 if one download is not successful
 #Author:
 #Jeffrey Wade, Cedric H. David, 2024.
-#
-# Excludes tests (15-31) related to largest rivers, smallest rivers, and
-# global summary due to GitHub Actions storage limits.
 
 #*****************************************************************************
 #Publication message
 #*****************************************************************************
 echo "********************"
-echo "Downloading files from:   https://doi.org/10.5281/zenodo.13381368"
+echo "Downloading files from:   https://doi.org/10.5281/zenodo.14538184"
 echo "which correspond to   :   https://doi.org/xx.xxxx/xxxxxxxxxxxx"
 echo "These files are under a CC BY-NC-SA 4.0 license."
 echo "Please cite these two DOIs if using these files for your publications."
@@ -36,30 +33,20 @@ echo "- Downloading MeanDRS Width Sampling repository"
 #-----------------------------------------------------------------------------
 #Download parameters
 #-----------------------------------------------------------------------------
-URL="https://zenodo.org/records/13381368/files"
+URL="https://zenodo.org/records/14538184/files"
 folder="../output"
 list=("riv_coast.zip"                                                          \
       "Qout_rivwidth.zip"                                                      \
       "V_rivwidth_low.zip"                                                     \
       "V_rivwidth_nrm.zip"                                                     \
       "V_rivwidth_hig.zip"                                                     \
+      "largest_rivs.zip"                                                       \
+      "smallest_rivs.zip"                                                      \
+      "global_summary.zip"                                                     \
       "cor_sens.zip"                                                           \
       "rivwidth_sens.zip"                                                      \
+      "width_val.zip"                                                          \
       )
-
-# Full download with largest_rivs/smallest_rivs/global_summary
-#list=("riv_coast.zip"                                                          \
-#      "Qout_rivwidth.zip"                                                      \
-#      "V_rivwidth_low.zip"                                                     \
-#      "V_rivwidth_nrm.zip"                                                     \
-#      "V_rivwidth_hig.zip"                                                     \
-#      "largest_rivs.zip"                                                       \
-#      "smallest_rivs.zip"                                                      \
-#      "global_summary.zip"                                                     \
-#      "cor_sens.zip"                                                           \
-#      "rivwidth_sens.zip"                                                      \
-#      )
-
 
 #-----------------------------------------------------------------------------
 #Download process
@@ -79,9 +66,9 @@ do
 #-----------------------------------------------------------------------------
 #Delete files from untested regions (all except pfaf 11)
 #-----------------------------------------------------------------------------
-    find "${folder}" -type f ! -name '*11*' -exec rm {} +
+    find "${folder}" -type f ! -name '*11*' ! -path '*/ms_region_overlap/*'   \
+        -exec rm {} +
     if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-    
 done
 
 echo "Success"
@@ -285,7 +272,7 @@ do
 done
 
 #-----------------------------------------------------------------------------
-#Rename moved files from ENS to COR: Qout_pfaf_ii (9)
+#Rename moved files from ENS to COR: Qout_pfaf_ii
 #-----------------------------------------------------------------------------
 for file in "${folder}/${list[9]%.zip}"/*ENS*
 do
@@ -295,7 +282,7 @@ do
 done
 
 #-----------------------------------------------------------------------------
-#Move files to new folders: Qout_pfaf_ii
+##Move files to new folders: Qout_pfaf_ii
 #-----------------------------------------------------------------------------
 mkdir "${folder}/Qout_COR"
 mv "${folder}/${list[9]%.zip}/"*.* "${folder}/Qout_COR"
@@ -332,7 +319,7 @@ mv "${folder}/${list[14]%.zip}/"*.* "${folder}/rapid_connect"
 if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 #-----------------------------------------------------------------------------
-##Move files to new folders: global_perim GLOBAL PERIM
+##Move files to new folders: global_perim
 #-----------------------------------------------------------------------------
 mkdir "${folder}/global_perim"
 mv "${folder}/${list[15]%.zip}/"*.* "${folder}/global_perim"
@@ -455,3 +442,88 @@ echo "********************"
 #*****************************************************************************
 #Done
 #*****************************************************************************
+
+
+#*****************************************************************************
+#Download SWORD files
+#*****************************************************************************
+echo "- Downloading SWORD files"
+#-----------------------------------------------------------------------------
+#Download parameters
+#-----------------------------------------------------------------------------
+URL="https://zenodo.org/records/10013982/files"
+folder="../input/SWORD"
+list=("SWORD_v16_shp.zip")
+
+#-----------------------------------------------------------------------------
+#Download process
+#-----------------------------------------------------------------------------
+mkdir -p $folder
+for file in "${list[@]}"
+do
+    wget -nv -nc $URL/$file -P $folder/
+    if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
+done
+
+#-----------------------------------------------------------------------------
+#Extract files
+#-----------------------------------------------------------------------------
+unzip -nq "${folder}/${list}" -d "${folder}/${list%.zip}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Delete files from untested regions (all except pfaf 11)
+#-----------------------------------------------------------------------------
+find "${folder}" -type f ! -name '*11*' -exec rm {} +
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Relocate reach files from subdirectories
+#-----------------------------------------------------------------------------
+find "${folder}/${list%.zip}" -type f -name "*reaches*" -exec mv {} "${folder}" \;
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+rm -rf "${folder}/${list%.zip}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+echo "Success"
+echo "********************"
+
+#*****************************************************************************
+#Done
+#*****************************************************************************
+
+
+#*****************************************************************************
+#Download MERIT-SWORD files
+#*****************************************************************************
+echo "- Downloading MERIT-SWORD files"
+#-----------------------------------------------------------------------------
+#Download parameters
+#-----------------------------------------------------------------------------
+URL="https://zenodo.org/records/13183883/files"
+folder="../input/MERIT-SWORD"
+list=("ms_translate.zip"                                                       \
+      )
+
+#-----------------------------------------------------------------------------
+#Download process
+#-----------------------------------------------------------------------------
+mkdir -p $folder
+for file in "${list[@]}"
+do
+    wget -nv -nc $URL/$file -P $folder/
+    if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
+done
+
+#-----------------------------------------------------------------------------
+#Extract files
+#-----------------------------------------------------------------------------
+unzip -nq "${folder}/${list}" -d "${folder}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Delete files from untested regions (all except pfaf 11)
+#-----------------------------------------------------------------------------
+find "${folder}" -type f ! -name '*11*' -exec rm {} +
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi

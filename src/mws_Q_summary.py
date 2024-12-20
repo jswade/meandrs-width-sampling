@@ -26,8 +26,8 @@ import os
 # 1 - Qout_rivwid_csv
 # 2 - Qout_out
 # 3 - Qout_prop_out
-# 4 - Qout_std_out
-# 5 - Qout_std_prop_out
+# 4 - Qout_range_out
+# 5 - Qout_range_prop_out
 
 
 # ******************************************************************************
@@ -41,8 +41,8 @@ if IS_arg != 6:
 Qout_rivwid_csv = sys.argv[1]
 Qout_out = sys.argv[2]
 Qout_prop_out = sys.argv[3]
-Qout_std_out = sys.argv[4]
-Qout_std_prop_out = sys.argv[5]
+Qout_range_out = sys.argv[4]
+Qout_range_prop_out = sys.argv[5]
 
 
 # ******************************************************************************
@@ -116,7 +116,6 @@ Q_prop.to_csv(Qout_prop_out)
 # ------------------------------------------------------------------------------
 # Calculate total global Q to ocean at each time step for each scenario
 # ------------------------------------------------------------------------------
-
 # Initialize dataframe to store global Q values
 Q_global = pd.DataFrame(np.zeros(Qout_rivwid[0].shape))
 
@@ -132,12 +131,17 @@ for j in range(len(Qout_rivwid)):
     # Sum Q to ocean at each time step for each river width scenario
     Q_global.iloc[:, 1:] = Q_global.iloc[:, 1:] + Qout_rivwid[j].iloc[:, 1:]
 
-# Summarize Q STD for river width scenarios
-Q_std = np.std(Q_global.iloc[:, 1:], axis=0)
+# Summarize Q mean annual range for river width scenarios
+Q_range = []
+chunk = 12
+for i in range(1, Q_global.shape[1]):
+    Q_slice = Q_global.iloc[:, i].values.reshape(-1, chunk)
+    Q_range.append(np.mean(Q_slice.max(axis=1) - Q_slice.min(axis=1)))
 
-# Calculate proportion of Q std deviation captured by each scenario
-Q_std_prop = 100 * Q_std/Q_std.iloc[len(Q_std)-1]
+# Calculate proportion of Q range of each scenario compared to global range
+Q_range_prop = 100 * pd.Series(Q_range/Q_range[-1])
+Q_range = pd.Series(Q_range)
 
 # Write files to csv
-Q_std.to_csv(Qout_std_out)
-Q_std_prop.to_csv(Qout_std_prop_out)
+Q_range.to_csv(Qout_range_out)
+Q_range_prop.to_csv(Qout_range_prop_out)

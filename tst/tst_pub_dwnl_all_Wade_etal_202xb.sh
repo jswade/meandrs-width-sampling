@@ -7,7 +7,7 @@
 #This script downloads all the files corresponding to:
 #DOI: xx.xxxx/xxxxxxxxxxxx
 #The files used are available from:
-#DOI: 10.5281/zenodo.13381368
+#DOI: 10.5281/zenodo.14538184
 #The script returns the following exit codes
 # - 0  if all downloads are successful
 # - 22 if there was a conversion problem
@@ -19,7 +19,7 @@
 #Publication message
 #*****************************************************************************
 echo "********************"
-echo "Downloading files from:   https://doi.org/10.5281/zenodo.13381368"
+echo "Downloading files from:   https://doi.org/10.5281/zenodo.14538184"
 echo "which correspond to   :   https://doi.org/xx.xxxx/xxxxxxxxxxxx"
 echo "These files are under a CC BY-NC-SA 4.0 license."
 echo "Please cite these two DOIs if using these files for your publications."
@@ -33,7 +33,7 @@ echo "- Downloading MeanDRS Width Sampling repository"
 #-----------------------------------------------------------------------------
 #Download parameters
 #-----------------------------------------------------------------------------
-URL="https://zenodo.org/records/13381368/files"
+URL="https://zenodo.org/records/14538184/files"
 folder="../output"
 list=("riv_coast.zip"                                                          \
       "Qout_rivwidth.zip"                                                      \
@@ -45,6 +45,7 @@ list=("riv_coast.zip"                                                          \
       "global_summary.zip"                                                     \
       "cor_sens.zip"                                                           \
       "rivwidth_sens.zip"                                                      \
+      "width_val.zip"                                                          \
       )
 
 #-----------------------------------------------------------------------------
@@ -464,3 +465,99 @@ echo "********************"
 #*****************************************************************************
 
 
+#*****************************************************************************
+#Download SWORD files
+#*****************************************************************************
+echo "- Downloading SWORD files"
+#-----------------------------------------------------------------------------
+#Download parameters
+#-----------------------------------------------------------------------------
+URL="https://zenodo.org/records/10013982/files"
+folder="../input/SWORD"
+list=("SWORD_v16_shp.zip")
+
+#-----------------------------------------------------------------------------
+#Download process
+#-----------------------------------------------------------------------------
+mkdir -p $folder
+for file in "${list[@]}"
+do
+    wget -nv -nc $URL/$file -P $folder/
+    if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
+done
+
+#-----------------------------------------------------------------------------
+#Extract files
+#-----------------------------------------------------------------------------
+unzip -nq "${folder}/${list}" -d "${folder}/${list%.zip}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Delete zip file
+#-----------------------------------------------------------------------------
+rm "${folder}/${list}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Relocate reach files from subdirectories
+#-----------------------------------------------------------------------------
+find "${folder}/${list%.zip}" -type f -name "*reaches*" -exec mv {} "${folder}" \;
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+rm -rf "${folder}/${list%.zip}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+echo "Success"
+echo "********************"
+
+#*****************************************************************************
+#Done
+#*****************************************************************************
+
+
+#*****************************************************************************
+#Download MERIT-SWORD files
+#*****************************************************************************
+echo "- Downloading MERIT-SWORD files"
+#-----------------------------------------------------------------------------
+#Download parameters
+#-----------------------------------------------------------------------------
+URL="https://zenodo.org/records/13183883/files"
+folder="../input/MERIT-SWORD"
+list=("ms_translate.zip"                                                       \
+      )
+
+#-----------------------------------------------------------------------------
+#Download process
+#-----------------------------------------------------------------------------
+mkdir -p $folder
+for file in "${list[@]}"
+do
+    wget -nv -nc $URL/$file -P $folder
+    if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
+done
+
+#-----------------------------------------------------------------------------
+#Extract files
+#-----------------------------------------------------------------------------
+for file in "${list[@]}"
+do
+    unzip -nq "${folder}/${file}" -d "${folder}/"
+    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+done
+
+#-----------------------------------------------------------------------------
+#Delete zip file
+#-----------------------------------------------------------------------------
+for file in "${list[@]}"
+do
+    rm "${folder}/${file}"
+    if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+done
+
+echo "Success"
+echo "********************"
+
+#*****************************************************************************
+#Done
+#*****************************************************************************

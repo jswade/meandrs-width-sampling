@@ -29,14 +29,14 @@ import os
 # ******************************************************************************
 # 1 - riv_uncor_shp
 # 2 - Qout_prop_csv
-# 3 - Qout_std_prop_csv
+# 3 - Qout_range_prop_csv
 # 4 - Qout_rivwid_csv
 # 5 - V_prop_low_csv
 # 6 - V_prop_nrm_csv
 # 7 - V_prop_hig_csv
-# 8 - V_prop_low_std_csv
-# 9 - V_prop_nrm_std_csv
-# 10 - V_prop_hig_std_csv
+# 8 - V_prop_low_range_csv
+# 9 - V_prop_nrm_range_csv
+# 10 - V_prop_hig_range_csv
 # 11 - V_rivwid_low_csv
 # 12 - V_rivwid_nrm_csv
 # 13 - V_rivwid_hig_csv
@@ -59,14 +59,14 @@ if IS_arg != 21:
 
 riv_uncor_shp = sys.argv[1]
 Qout_prop_csv = sys.argv[2]
-Qout_std_prop_csv = sys.argv[3]
+Qout_range_prop_csv = sys.argv[3]
 Qout_rivwid_csv = sys.argv[4]
 V_prop_low_csv = sys.argv[5]
 V_prop_nrm_csv = sys.argv[6]
 V_prop_hig_csv = sys.argv[7]
-V_prop_low_std_csv = sys.argv[8]
-V_prop_nrm_std_csv = sys.argv[9]
-V_prop_hig_std_csv = sys.argv[10]
+V_prop_low_range_csv = sys.argv[8]
+V_prop_nrm_range_csv = sys.argv[9]
+V_prop_hig_range_csv = sys.argv[10]
 V_rivwid_low_csv = sys.argv[11]
 V_rivwid_nrm_csv = sys.argv[12]
 V_rivwid_hig_csv = sys.argv[13]
@@ -97,10 +97,10 @@ except IOError:
     raise SystemExit(22)
 
 try:
-    with open(Qout_std_prop_csv) as file:
+    with open(Qout_range_prop_csv) as file:
         pass
 except IOError:
-    print('ERROR - Unable to open '+Qout_std_prop_csv)
+    print('ERROR - Unable to open '+Qout_range_prop_csv)
     raise SystemExit(22)
 
 try:
@@ -132,24 +132,24 @@ except IOError:
     raise SystemExit(22)
 
 try:
-    with open(V_prop_low_std_csv) as file:
+    with open(V_prop_low_range_csv) as file:
         pass
 except IOError:
-    print('ERROR - Unable to open '+V_prop_low_std_csv)
+    print('ERROR - Unable to open '+V_prop_low_range_csv)
     raise SystemExit(22)
 
 try:
-    with open(V_prop_nrm_std_csv) as file:
+    with open(V_prop_nrm_range_csv) as file:
         pass
 except IOError:
-    print('ERROR - Unable to open '+V_prop_nrm_std_csv)
+    print('ERROR - Unable to open '+V_prop_nrm_range_csv)
     raise SystemExit(22)
 
 try:
-    with open(V_prop_hig_std_csv) as file:
+    with open(V_prop_hig_range_csv) as file:
         pass
 except IOError:
-    print('ERROR - Unable to open '+V_prop_hig_std_csv)
+    print('ERROR - Unable to open '+V_prop_hig_range_csv)
     raise SystemExit(22)
 
 try:
@@ -205,7 +205,7 @@ riv_uncor = [fiona.open(j, 'r') for j in riv_uncor_files]
 # ------------------------------------------------------------------------------
 # Read files
 Qout_prop = pd.read_csv(Qout_prop_csv)
-Qout_std_prop = pd.read_csv(Qout_std_prop_csv)
+Qout_range_prop = pd.read_csv(Qout_range_prop_csv)
 
 Qout_rivwid_files = list(glob.iglob(Qout_rivwid_csv+'*'))
 Qout_rivwid_files.sort()
@@ -219,9 +219,9 @@ V_prop_low = pd.read_csv(V_prop_low_csv)
 V_prop_nrm = pd.read_csv(V_prop_nrm_csv)
 V_prop_hig = pd.read_csv(V_prop_hig_csv)
 
-V_prop_low_std = pd.read_csv(V_prop_low_std_csv)
-V_prop_nrm_std = pd.read_csv(V_prop_nrm_std_csv)
-V_prop_hig_std = pd.read_csv(V_prop_hig_std_csv)
+V_prop_low_range = pd.read_csv(V_prop_low_range_csv)
+V_prop_nrm_range = pd.read_csv(V_prop_nrm_range_csv)
+V_prop_hig_range = pd.read_csv(V_prop_hig_range_csv)
 
 V_rivwid_low_files = list(glob.iglob(V_rivwid_low_csv+'*'))
 V_rivwid_low_files.sort()
@@ -423,7 +423,7 @@ plt.savefig(fig2b_out, format='svg')
 # *******************************************************************************
 print('- Generating Figure 3')
 # ------------------------------------------------------------------------------
-# Plot River Width Scenarios: Mean and Std; (Figure 3)
+# Plot River Width Scenarios: Mean and Range; (Figure 3)
 # ------------------------------------------------------------------------------
 # Set max river width scenario
 n_s = 500
@@ -438,22 +438,22 @@ wid_scen = pd.DataFrame(list(range(n_s, -1, -step)))
 rivwid_scen_pt = wid_scen.iloc[range(0, len(wid_scen)+1, 5)]
 V_nrm_pt = V_prop_nrm.iloc[range(0, len(wid_scen)+1, 5)]
 Qout_pt = Qout_prop.iloc[range(0, len(wid_scen)+1, 5)]
-V_nrm_std_pt = V_prop_nrm_std.iloc[range(0, len(wid_scen)+1, 5)]
-Qout_std_pt = Qout_std_prop.iloc[range(0, len(wid_scen)+1, 5)]
+V_nrm_range_pt = V_prop_nrm_range.iloc[range(0, len(wid_scen)+1, 5)]
+Qout_range_pt = Qout_range_prop.iloc[range(0, len(wid_scen)+1, 5)]
 
 fig, ax = plt.subplots()
 
 col1 = 'black'
-ax.plot(rivwid_scen_pt, V_nrm_std_pt.iloc[:, 1], color=col1,
+ax.plot(rivwid_scen_pt, V_nrm_range_pt.iloc[:, 1], color=col1,
         linestyle='dashed')
-ax.scatter(rivwid_scen_pt, V_nrm_std_pt.iloc[:, 1],
+ax.scatter(rivwid_scen_pt, V_nrm_range_pt.iloc[:, 1],
            color=col1, marker='D')
 ax.tick_params(axis='y', labelcolor=col1)
 
 col2 = '#3b5ba1'
-ax.plot(rivwid_scen_pt, Qout_std_pt.iloc[:, 1], color=col2,
+ax.plot(rivwid_scen_pt, Qout_range_pt.iloc[:, 1], color=col2,
         linestyle='dashed')
-ax.scatter(rivwid_scen_pt, Qout_std_pt.iloc[:, 1],
+ax.scatter(rivwid_scen_pt, Qout_range_pt.iloc[:, 1],
            color=col2, marker='D')
 
 ax.set_xlabel('Aggregation for All Rivers Wider Than Given Width (m)')

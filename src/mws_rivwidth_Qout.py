@@ -21,7 +21,6 @@ import fiona
 import datetime
 import netCDF4 as nc
 import sys
-import pytz
 
 
 # ******************************************************************************
@@ -171,12 +170,9 @@ for i in range(len(wid_scen)):
 # Write model Q values to csv for each pfaf
 # ******************************************************************************
 print('- Write Qout to CSV')
-# Set index and column names (times are in arbitrary PST to match Zenodo)
-time_nc_series = pd.Series(time_nc).apply(lambda x:
-                                          datetime.datetime.utcfromtimestamp(x))
-time_nc_series = time_nc_series.dt.tz_localize('UTC').\
-    dt.tz_convert('America/Los_Angeles')
-Q_df.index = time_nc_series.dt.tz_localize(None)
+# Set index and column names
+time_nc_ser = pd.Series(time_nc)
+Q_df.index = time_nc_ser.apply(lambda x: datetime.datetime.fromtimestamp(x))
 Q_df.index.name = 'time'
 
 # Write to csv
