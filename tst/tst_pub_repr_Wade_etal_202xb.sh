@@ -17,672 +17,655 @@
 ##Author:
 ##Jeffrey Wade, Cedric H. David, 2024
 ##
-##*****************************************************************************
-##Publication message
-##*****************************************************************************
-#echo "********************"
-#echo "Reproducing files for: https://doi.org/xxx/zenodo.xxx"
-#echo "********************"
-#
-#
-##*****************************************************************************
-##Set Pfaf regions and rank
-##*****************************************************************************
-#pfaf='11'
-#rank='10'
-#reg='af'
-#
-#
-##*****************************************************************************
-##Retrieve number of files preset in output directories
-##*****************************************************************************
-#num_files=$(ls ../input/MeanDRS/Qout_COR/* | wc -l)
-#
-#
-##*****************************************************************************
-##Select which unit tests to perform based on inputs to this shell script
-##*****************************************************************************
-##Perform all unit tests if no options are given and all files available
-##Perform subset of unit tests if files are missing from GitHub Actions CI
-#tot=31
-#if [ "$#" = "0" ]; then
-#    if [ "$num_files" -ne 61 ] ; then
-#        fst=1
-#        lst=15
-#        echo "Performing all unit tests for available files"
-#        echo "********************"
-#    else
-#        fst=1
-#        lst=$tot
-#        echo "Performing all unit tests"
-#        echo "********************"
-#    fi
-#fi
-#
-##Perform one single unit test if one option is given
-#if [ "$#" = "1" ]; then
-#     fst=$1
-#     lst=$1
-#     echo "Performing one unit test: $1"
-#     echo "********************"
-#fi
-#
-##Perform all unit tests between first and second option given (both included)
-#if [ "$#" = "2" ]; then
-#     fst=$1
-#     lst=$2
-#     echo "Performing unit tests: $1-$2"
-#     echo "********************"
-#fi
-#
-##Exit if more than two options are given
-#if [ "$#" -gt "2" ]; then
-#     echo "A maximum of two options can be used" 1>&2
-#     exit 22
-#fi
-#
-#
-##*****************************************************************************
-##Initialize count for unit tests
-##*****************************************************************************
-#unt=0
-#
-#
-##*****************************************************************************
-##Identify rivers draining to the global coast: ENS/COR
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/riv_coast/cor"
-#mkdir -p "../output_test/riv_coast/uncor"
-#
-#echo "- Identifying coastal rivers: ENS/COR"
-#../src/mws_coastal_rivs.py                                                     \
-#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-#    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_11_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
-#    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing corrected coastal rivers file: COR (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                     \
-#    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#    
-#echo "- Comparing uncorrected coastal rivers file: ENS (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
-#    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#    
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Identify rivers draining to the global coast: Uncorrected VIC
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_VIC"
-#
-#echo "- Identifying coastal rivers: VIC"
-#../src/mws_coastal_rivs.py                                                     \
-#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-#    ../input/MeanDRS/Qout_VIC/Qout_pfaf_${pfaf}_GLDAS_VIC_M_1980-01_2009-12_utc.nc4 \
-#    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#    
-#echo "- Comparing uncorrected coastal rivers file: VIC (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
-#    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#    
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-##*****************************************************************************
-##Identify rivers draining to the global coast: Uncorrected CLSM
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_CLSM"
-#
-#echo "- Identifying coastal rivers: CLSM"
-#../src/mws_coastal_rivs.py                                                     \
-#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-#    ../input/MeanDRS/Qout_CLSM/Qout_pfaf_${pfaf}_GLDAS_CLSM_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#    
-#echo "- Comparing uncorrected coastal rivers file: CLSM (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-#    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#    
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Identify rivers draining to the global coast: Uncorrected NOAH
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_NOAH"
-#
-#echo "- Identifying coastal rivers: NOAH"
-#../src/mws_coastal_rivs.py                                                     \
-#    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
-#    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
-#    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
-#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-#    ../input/MeanDRS/Qout_NOAH/Qout_pfaf_${pfaf}_GLDAS_NOAH_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#    
-#echo "- Comparing uncorrected coastal rivers file: NOAH (.shp)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-#    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#    
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: ENS/COR
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/Qout_rivwidth"
-#
-#echo "- Calculate discharge to ocean for river width samples: ENS/COR"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
-#    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                     \
-#    ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: VIC
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_VIC/"
-#
-#echo "- Calculate discharge to ocean for river width samples: VIC"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
-#    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file: VIC (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: CLSM
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_CLSM/"
-#
-#echo "- Calculate discharge to ocean for river width samples: CLSM"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
-#    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file: CLSM (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: NOAH
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_NOAH/"
-#
-#echo "- Calculate discharge to ocean for river width samples: NOAH"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
-#    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file: NOAH (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
-#    ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate discharge to ocean based on river width samples: ENS/ENS
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/cor_sens/Qout_rivwidth_ENS/"
-#
-#echo "- Calculate discharge to ocean for river width samples: ENS"
-#python ../src/mws_rivwidth_Qout.py                                             \
-#    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
-#    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
-#    ../output_test/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing Qout river width file: ENS/ENS (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv    \
-#    ../output_test/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate total volume based on river width samples: ENS/COR
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/V_rivwidth_low"
-#mkdir -p "../output_test/V_rivwidth_nrm"
-#mkdir -p "../output_test/V_rivwidth_hig"
-#
-#echo "- Calculate total river volume for river width samples"
-#../src/mws_rivwidth_V.py                                                       \
-#    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
-#    ../input/MeanDRS/V_low_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_low.nc4\
-#    ../input/MeanDRS/V_nrm_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_nrm.nc4\
-#    ../input/MeanDRS/V_hig_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_hig.nc4\
-#    ../output_test/V_rivwidth_low/V_pfaf_${pfaf}_rivwidth_low.csv              \
-#    ../output_test/V_rivwidth_nrm/V_pfaf_${pfaf}_rivwidth_nrm.csv              \
-#    ../output_test/V_rivwidth_hig/V_pfaf_${pfaf}_rivwidth_hig.csv              \
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_low river width file (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/V_rivwidth_low/V_pfaf_${pfaf}_rivwidth_low.csv                   \
-#    ../output_test/V_rivwidth_low/V_pfaf_${pfaf}_rivwidth_low.csv              \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_nrm river width file (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/V_rivwidth_nrm/V_pfaf_${pfaf}_rivwidth_nrm.csv                   \
-#    ../output_test/V_rivwidth_nrm/V_pfaf_${pfaf}_rivwidth_nrm.csv              \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_hig river width file (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/V_rivwidth_hig/V_pfaf_${pfaf}_rivwidth_hig.csv                   \
-#    ../output_test/V_rivwidth_hig/V_pfaf_${pfaf}_rivwidth_hig.csv              \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate total volume based on river width samples: VIC
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/V_rivwidth_low_VIC"
-#mkdir -p "../output_test/rivwidth_sens/V_rivwidth_nrm_VIC"
-#mkdir -p "../output_test/rivwidth_sens/V_rivwidth_hig_VIC"
-#
-#echo "- Calculate total river volume for river width samples: VIC"
-#../src/mws_rivwidth_V.py                                                       \
-#    ../input/MeanDRS/Qout_VIC/Qout_pfaf_${pfaf}_GLDAS_VIC_M_1980-01_2009-12_utc.nc4\
-#    ../input/MeanDRS/V_low_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_low.nc4\
-#    ../input/MeanDRS/V_nrm_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_nrm.nc4\
-#    ../input/MeanDRS/V_hig_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_hig.nc4\
-#    ../output_test/rivwidth_sens/V_rivwidth_low_VIC/V_pfaf_${pfaf}_rivwidth_low_VIC_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_nrm_VIC/V_pfaf_${pfaf}_rivwidth_nrm_VIC_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_hig_VIC/V_pfaf_${pfaf}_rivwidth_hig_VIC_wid.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_low river width file: VIC (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/V_rivwidth_low_VIC/V_pfaf_${pfaf}_rivwidth_low_VIC_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_low_VIC/V_pfaf_${pfaf}_rivwidth_low_VIC_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_nrm river width file: VIC (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/V_rivwidth_nrm_VIC/V_pfaf_${pfaf}_rivwidth_nrm_VIC_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_nrm_VIC/V_pfaf_${pfaf}_rivwidth_nrm_VIC_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_hig river width file: VIC (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/V_rivwidth_hig_VIC/V_pfaf_${pfaf}_rivwidth_hig_VIC_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_hig_VIC/V_pfaf_${pfaf}_rivwidth_hig_VIC_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate total volume based on river width samples: CLSM
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/V_rivwidth_low_CLSM"
-#mkdir -p "../output_test/rivwidth_sens/V_rivwidth_nrm_CLSM"
-#mkdir -p "../output_test/rivwidth_sens/V_rivwidth_hig_CLSM"
-#
-#echo "- Calculate total river volume for river width samples: CLSM"
-#../src/mws_rivwidth_V.py                                                       \
-#    ../input/MeanDRS/Qout_CLSM/Qout_pfaf_${pfaf}_GLDAS_CLSM_M_1980-01_2009-12_utc.nc4\
-#    ../input/MeanDRS/V_low_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_low.nc4\
-#    ../input/MeanDRS/V_nrm_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_nrm.nc4\
-#    ../input/MeanDRS/V_hig_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_hig.nc4\
-#    ../output_test/rivwidth_sens/V_rivwidth_low_CLSM/V_pfaf_${pfaf}_rivwidth_low_CLSM_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_nrm_CLSM/V_pfaf_${pfaf}_rivwidth_nrm_CLSM_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_hig_CLSM/V_pfaf_${pfaf}_rivwidth_hig_CLSM_wid.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_low river width file: CLSM (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/V_rivwidth_low_CLSM/V_pfaf_${pfaf}_rivwidth_low_CLSM_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_low_CLSM/V_pfaf_${pfaf}_rivwidth_low_CLSM_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_nrm river width file: CLSM (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/V_rivwidth_nrm_CLSM/V_pfaf_${pfaf}_rivwidth_nrm_CLSM_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_nrm_CLSM/V_pfaf_${pfaf}_rivwidth_nrm_CLSM_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_hig river width file: CLSM (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/V_rivwidth_hig_CLSM/V_pfaf_${pfaf}_rivwidth_hig_CLSM_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_hig_CLSM/V_pfaf_${pfaf}_rivwidth_hig_CLSM_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate total volume based on river width samples: NOAH
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/rivwidth_sens/V_rivwidth_low_NOAH"
-#mkdir -p "../output_test/rivwidth_sens/V_rivwidth_nrm_NOAH"
-#mkdir -p "../output_test/rivwidth_sens/V_rivwidth_hig_NOAH"
-#
-#echo "- Calculate total river volume for river width samples: NOAH"
-#../src/mws_rivwidth_V.py                                                       \
-#    ../input/MeanDRS/Qout_NOAH/Qout_pfaf_${pfaf}_GLDAS_NOAH_M_1980-01_2009-12_utc.nc4\
-#    ../input/MeanDRS/V_low_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_low.nc4\
-#    ../input/MeanDRS/V_nrm_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_nrm.nc4\
-#    ../input/MeanDRS/V_hig_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_hig.nc4\
-#    ../output_test/rivwidth_sens/V_rivwidth_low_NOAH/V_pfaf_${pfaf}_rivwidth_low_NOAH_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_nrm_NOAH/V_pfaf_${pfaf}_rivwidth_nrm_NOAH_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_hig_NOAH/V_pfaf_${pfaf}_rivwidth_hig_NOAH_wid.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_low river width file: NOAH (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/V_rivwidth_low_NOAH/V_pfaf_${pfaf}_rivwidth_low_NOAH_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_low_NOAH/V_pfaf_${pfaf}_rivwidth_low_NOAH_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_nrm river width file: NOAH (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/V_rivwidth_nrm_NOAH/V_pfaf_${pfaf}_rivwidth_nrm_NOAH_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_nrm_NOAH/V_pfaf_${pfaf}_rivwidth_nrm_NOAH_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_hig river width file: CLSM (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/rivwidth_sens/V_rivwidth_hig_NOAH/V_pfaf_${pfaf}_rivwidth_hig_NOAH_wid.csv\
-#    ../output_test/rivwidth_sens/V_rivwidth_hig_NOAH/V_pfaf_${pfaf}_rivwidth_hig_NOAH_wid.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
-#
-##*****************************************************************************
-##Calculate total volume based on river width samples: ENS/ENS
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#cmp_file=tmp_cmp_$unt.txt
-#
-#mkdir -p "../output_test/cor_sens/V_rivwidth_low_ENS"
-#mkdir -p "../output_test/cor_sens/V_rivwidth_nrm_ENS"
-#mkdir -p "../output_test/cor_sens/V_rivwidth_hig_ENS"
-#
-#echo "- Calculate total river volume for river width samples: ENS"
-#../src/mws_rivwidth_V.py                                                       \
-#    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
-#    ../input/MeanDRS/V_low_UNCOR/V_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc_low.nc4\
-#    ../input/MeanDRS/V_nrm_UNCOR/V_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc_nrm.nc4\
-#    ../input/MeanDRS/V_hig_UNCOR/V_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc_hig.nc4\
-#    ../output_test/cor_sens/V_rivwidth_low_ENS/V_pfaf_${pfaf}_rivwidth_low_ENS.csv\
-#    ../output_test/cor_sens/V_rivwidth_nrm_ENS/V_pfaf_${pfaf}_rivwidth_nrm_ENS.csv\
-#    ../output_test/cor_sens/V_rivwidth_hig_ENS/V_pfaf_${pfaf}_rivwidth_hig_ENS.csv\
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_low river width file: ENS (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/cor_sens/V_rivwidth_low_ENS/V_pfaf_${pfaf}_rivwidth_low_ENS.csv  \
-#    ../output_test/cor_sens/V_rivwidth_low_ENS/V_pfaf_${pfaf}_rivwidth_low_ENS.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_nrm river width file: ENS (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/cor_sens/V_rivwidth_nrm_ENS/V_pfaf_${pfaf}_rivwidth_nrm_ENS.csv  \
-#    ../output_test/cor_sens/V_rivwidth_nrm_ENS/V_pfaf_${pfaf}_rivwidth_nrm_ENS.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing V_hig river width file: ENS (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/cor_sens/V_rivwidth_hig_ENS/V_pfaf_${pfaf}_rivwidth_hig_ENS.csv  \
-#    ../output_test/cor_sens/V_rivwidth_hig_ENS/V_pfaf_${pfaf}_rivwidth_hig_ENS.csv\
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
+#*****************************************************************************
+#Publication message
+#*****************************************************************************
+echo "********************"
+echo "Reproducing files for: https://doi.org/xxx/zenodo.xxx"
+echo "********************"
+
+
+#*****************************************************************************
+#Set Pfaf regions and rank
+#*****************************************************************************
+pfaf='11'
+rank='10'
+reg='af'
+
+
+#*****************************************************************************
+#Retrieve number of files preset in output directories
+#*****************************************************************************
+num_files=$(ls ../input/MeanDRS/Qout_COR/* | wc -l)
+
+
+#*****************************************************************************
+#Select which unit tests to perform based on inputs to this shell script
+#*****************************************************************************
+#Perform one single unit test if one option is given
+if [ "$#" = "1" ]; then
+     fst=$1
+     lst=$1
+     echo "Performing one unit test: $1"
+     echo "********************"
+fi
+
+#Perform all unit tests between first and second option given (both included)
+if [ "$#" = "2" ]; then
+     fst=$1
+     lst=$2
+     echo "Performing unit tests: $1-$2"
+     echo "********************"
+fi
+
+#Exit if more than two options are given
+if [ "$#" -gt "2" ]; then
+     echo "A maximum of two options can be used" 1>&2
+     exit 22
+fi
+
+
+#*****************************************************************************
+#Initialize count for unit tests
+#*****************************************************************************
+unt=0
+
+
+#*****************************************************************************
+#Identify rivers draining to the global coast: ENS/COR
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/riv_coast/cor"
+mkdir -p "../output_test/riv_coast/uncor"
+
+echo "- Identifying coastal rivers: ENS/COR"
+../src/mws_coastal_rivs.py                                                     \
+    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_11_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
+    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
+    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing corrected coastal rivers file: COR (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                     \
+    ../output_test/riv_coast/cor/riv_coast_pfaf_${pfaf}_COR.shp                \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+    
+echo "- Comparing uncorrected coastal rivers file: ENS (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
+    ../output_test/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp            \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+    
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Identify rivers draining to the global coast: Uncorrected VIC
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_VIC"
+
+echo "- Identifying coastal rivers: VIC"
+../src/mws_coastal_rivs.py                                                     \
+    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+    ../input/MeanDRS/Qout_VIC/Qout_pfaf_${pfaf}_GLDAS_VIC_M_1980-01_2009-12_utc.nc4 \
+    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+    
+echo "- Comparing uncorrected coastal rivers file: VIC (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
+    ../output_test/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+    
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+#*****************************************************************************
+#Identify rivers draining to the global coast: Uncorrected CLSM
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_CLSM"
+
+echo "- Identifying coastal rivers: CLSM"
+../src/mws_coastal_rivs.py                                                     \
+    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+    ../input/MeanDRS/Qout_CLSM/Qout_pfaf_${pfaf}_GLDAS_CLSM_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+    
+echo "- Comparing uncorrected coastal rivers file: CLSM (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+    ../output_test/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+    
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Identify rivers draining to the global coast: Uncorrected NOAH
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/riv_coast/uncor_NOAH"
+
+echo "- Identifying coastal rivers: NOAH"
+../src/mws_coastal_rivs.py                                                     \
+    ../input/MeanDRS/cat_disso/cat_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_disso.shp\
+    ../input/MeanDRS/global_perim/cat_MERIT_Hydro_v07_Basins_v01_perim.shp     \
+    ../input/MeanDRS/riv_COR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_COR.shp\
+    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+    ../input/MeanDRS/Qout_NOAH/Qout_pfaf_${pfaf}_GLDAS_NOAH_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+    
+echo "- Comparing uncorrected coastal rivers file: NOAH (.shp)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+    ../output_test/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+    
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: ENS/COR
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/Qout_rivwidth"
+
+echo "- Calculate discharge to ocean for river width samples: ENS/COR"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
+    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
+    ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                     \
+    ../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: VIC
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_VIC/"
+
+echo "- Calculate discharge to ocean for river width samples: VIC"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/rivwidth_sens/riv_coast/uncor_VIC/riv_coast_pfaf_${pfaf}_VIC.shp \
+    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file: VIC (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
+    ../output_test/rivwidth_sens/Qout_rivwidth_VIC/Qout_pfaf_${pfaf}_rivwidth_VIC_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: CLSM
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_CLSM/"
+
+echo "- Calculate discharge to ocean for river width samples: CLSM"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/rivwidth_sens/riv_coast/uncor_CLSM/riv_coast_pfaf_${pfaf}_CLSM.shp\
+    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file: CLSM (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/Qout_rivwidth_CLSM/Qout_pfaf_${pfaf}_rivwidth_CLSM_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: NOAH
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/Qout_rivwidth_NOAH/"
+
+echo "- Calculate discharge to ocean for river width samples: NOAH"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/rivwidth_sens/riv_coast/uncor_NOAH/riv_coast_pfaf_${pfaf}_NOAH.shp\
+    ../input/MeanDRS/Qout_COR/Qout_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc.nc4\
+    ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file: NOAH (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/Qout_rivwidth_NOAH/Qout_pfaf_${pfaf}_rivwidth_NOAH_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate discharge to ocean based on river width samples: ENS/ENS
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/cor_sens/Qout_rivwidth_ENS/"
+
+echo "- Calculate discharge to ocean for river width samples: ENS"
+python ../src/mws_rivwidth_Qout.py                                             \
+    ../output/riv_coast/uncor/riv_coast_pfaf_${pfaf}_UNCOR.shp                 \
+    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
+    ../output_test/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing Qout river width file: ENS/ENS (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv    \
+    ../output_test/cor_sens/Qout_rivwidth_ENS/Qout_pfaf_${pfaf}_rivwidth_ENS.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate total volume based on river width samples: ENS/COR
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/V_rivwidth_low"
+mkdir -p "../output_test/V_rivwidth_nrm"
+mkdir -p "../output_test/V_rivwidth_hig"
+
+echo "- Calculate total river volume for river width samples"
+../src/mws_rivwidth_V.py                                                       \
+    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
+    ../input/MeanDRS/V_low_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_low.nc4\
+    ../input/MeanDRS/V_nrm_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_nrm.nc4\
+    ../input/MeanDRS/V_hig_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_hig.nc4\
+    ../output_test/V_rivwidth_low/V_pfaf_${pfaf}_rivwidth_low.csv              \
+    ../output_test/V_rivwidth_nrm/V_pfaf_${pfaf}_rivwidth_nrm.csv              \
+    ../output_test/V_rivwidth_hig/V_pfaf_${pfaf}_rivwidth_hig.csv              \
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_low river width file (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/V_rivwidth_low/V_pfaf_${pfaf}_rivwidth_low.csv                   \
+    ../output_test/V_rivwidth_low/V_pfaf_${pfaf}_rivwidth_low.csv              \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_nrm river width file (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/V_rivwidth_nrm/V_pfaf_${pfaf}_rivwidth_nrm.csv                   \
+    ../output_test/V_rivwidth_nrm/V_pfaf_${pfaf}_rivwidth_nrm.csv              \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_hig river width file (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/V_rivwidth_hig/V_pfaf_${pfaf}_rivwidth_hig.csv                   \
+    ../output_test/V_rivwidth_hig/V_pfaf_${pfaf}_rivwidth_hig.csv              \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate total volume based on river width samples: VIC
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/V_rivwidth_low_VIC"
+mkdir -p "../output_test/rivwidth_sens/V_rivwidth_nrm_VIC"
+mkdir -p "../output_test/rivwidth_sens/V_rivwidth_hig_VIC"
+
+echo "- Calculate total river volume for river width samples: VIC"
+../src/mws_rivwidth_V.py                                                       \
+    ../input/MeanDRS/Qout_VIC/Qout_pfaf_${pfaf}_GLDAS_VIC_M_1980-01_2009-12_utc.nc4\
+    ../input/MeanDRS/V_low_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_low.nc4\
+    ../input/MeanDRS/V_nrm_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_nrm.nc4\
+    ../input/MeanDRS/V_hig_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_hig.nc4\
+    ../output_test/rivwidth_sens/V_rivwidth_low_VIC/V_pfaf_${pfaf}_rivwidth_low_VIC_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_nrm_VIC/V_pfaf_${pfaf}_rivwidth_nrm_VIC_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_hig_VIC/V_pfaf_${pfaf}_rivwidth_hig_VIC_wid.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_low river width file: VIC (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/V_rivwidth_low_VIC/V_pfaf_${pfaf}_rivwidth_low_VIC_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_low_VIC/V_pfaf_${pfaf}_rivwidth_low_VIC_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_nrm river width file: VIC (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/V_rivwidth_nrm_VIC/V_pfaf_${pfaf}_rivwidth_nrm_VIC_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_nrm_VIC/V_pfaf_${pfaf}_rivwidth_nrm_VIC_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_hig river width file: VIC (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/V_rivwidth_hig_VIC/V_pfaf_${pfaf}_rivwidth_hig_VIC_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_hig_VIC/V_pfaf_${pfaf}_rivwidth_hig_VIC_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate total volume based on river width samples: CLSM
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/V_rivwidth_low_CLSM"
+mkdir -p "../output_test/rivwidth_sens/V_rivwidth_nrm_CLSM"
+mkdir -p "../output_test/rivwidth_sens/V_rivwidth_hig_CLSM"
+
+echo "- Calculate total river volume for river width samples: CLSM"
+../src/mws_rivwidth_V.py                                                       \
+    ../input/MeanDRS/Qout_CLSM/Qout_pfaf_${pfaf}_GLDAS_CLSM_M_1980-01_2009-12_utc.nc4\
+    ../input/MeanDRS/V_low_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_low.nc4\
+    ../input/MeanDRS/V_nrm_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_nrm.nc4\
+    ../input/MeanDRS/V_hig_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_hig.nc4\
+    ../output_test/rivwidth_sens/V_rivwidth_low_CLSM/V_pfaf_${pfaf}_rivwidth_low_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_nrm_CLSM/V_pfaf_${pfaf}_rivwidth_nrm_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_hig_CLSM/V_pfaf_${pfaf}_rivwidth_hig_CLSM_wid.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_low river width file: CLSM (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/V_rivwidth_low_CLSM/V_pfaf_${pfaf}_rivwidth_low_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_low_CLSM/V_pfaf_${pfaf}_rivwidth_low_CLSM_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_nrm river width file: CLSM (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/V_rivwidth_nrm_CLSM/V_pfaf_${pfaf}_rivwidth_nrm_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_nrm_CLSM/V_pfaf_${pfaf}_rivwidth_nrm_CLSM_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_hig river width file: CLSM (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/V_rivwidth_hig_CLSM/V_pfaf_${pfaf}_rivwidth_hig_CLSM_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_hig_CLSM/V_pfaf_${pfaf}_rivwidth_hig_CLSM_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate total volume based on river width samples: NOAH
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/rivwidth_sens/V_rivwidth_low_NOAH"
+mkdir -p "../output_test/rivwidth_sens/V_rivwidth_nrm_NOAH"
+mkdir -p "../output_test/rivwidth_sens/V_rivwidth_hig_NOAH"
+
+echo "- Calculate total river volume for river width samples: NOAH"
+../src/mws_rivwidth_V.py                                                       \
+    ../input/MeanDRS/Qout_NOAH/Qout_pfaf_${pfaf}_GLDAS_NOAH_M_1980-01_2009-12_utc.nc4\
+    ../input/MeanDRS/V_low_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_low.nc4\
+    ../input/MeanDRS/V_nrm_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_nrm.nc4\
+    ../input/MeanDRS/V_hig_COR/V_pfaf_${pfaf}_GLDAS_COR_M_1980-01_2009-12_utc_hig.nc4\
+    ../output_test/rivwidth_sens/V_rivwidth_low_NOAH/V_pfaf_${pfaf}_rivwidth_low_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_nrm_NOAH/V_pfaf_${pfaf}_rivwidth_nrm_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_hig_NOAH/V_pfaf_${pfaf}_rivwidth_hig_NOAH_wid.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_low river width file: NOAH (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/V_rivwidth_low_NOAH/V_pfaf_${pfaf}_rivwidth_low_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_low_NOAH/V_pfaf_${pfaf}_rivwidth_low_NOAH_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_nrm river width file: NOAH (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/V_rivwidth_nrm_NOAH/V_pfaf_${pfaf}_rivwidth_nrm_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_nrm_NOAH/V_pfaf_${pfaf}_rivwidth_nrm_NOAH_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_hig river width file: CLSM (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/rivwidth_sens/V_rivwidth_hig_NOAH/V_pfaf_${pfaf}_rivwidth_hig_NOAH_wid.csv\
+    ../output_test/rivwidth_sens/V_rivwidth_hig_NOAH/V_pfaf_${pfaf}_rivwidth_hig_NOAH_wid.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
+
+#*****************************************************************************
+#Calculate total volume based on river width samples: ENS/ENS
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+cmp_file=tmp_cmp_$unt.txt
+
+mkdir -p "../output_test/cor_sens/V_rivwidth_low_ENS"
+mkdir -p "../output_test/cor_sens/V_rivwidth_nrm_ENS"
+mkdir -p "../output_test/cor_sens/V_rivwidth_hig_ENS"
+
+echo "- Calculate total river volume for river width samples: ENS"
+../src/mws_rivwidth_V.py                                                       \
+    ../input/MeanDRS/Qout_UNCOR/Qout_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc.nc4\
+    ../input/MeanDRS/V_low_UNCOR/V_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc_low.nc4\
+    ../input/MeanDRS/V_nrm_UNCOR/V_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc_nrm.nc4\
+    ../input/MeanDRS/V_hig_UNCOR/V_pfaf_${pfaf}_GLDAS_ENS_M_1980-01_2009-12_utc_hig.nc4\
+    ../output_test/cor_sens/V_rivwidth_low_ENS/V_pfaf_${pfaf}_rivwidth_low_ENS.csv\
+    ../output_test/cor_sens/V_rivwidth_nrm_ENS/V_pfaf_${pfaf}_rivwidth_nrm_ENS.csv\
+    ../output_test/cor_sens/V_rivwidth_hig_ENS/V_pfaf_${pfaf}_rivwidth_hig_ENS.csv\
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_low river width file: ENS (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/cor_sens/V_rivwidth_low_ENS/V_pfaf_${pfaf}_rivwidth_low_ENS.csv  \
+    ../output_test/cor_sens/V_rivwidth_low_ENS/V_pfaf_${pfaf}_rivwidth_low_ENS.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_nrm river width file: ENS (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/cor_sens/V_rivwidth_nrm_ENS/V_pfaf_${pfaf}_rivwidth_nrm_ENS.csv  \
+    ../output_test/cor_sens/V_rivwidth_nrm_ENS/V_pfaf_${pfaf}_rivwidth_nrm_ENS.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+echo "- Comparing V_hig river width file: ENS (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/cor_sens/V_rivwidth_hig_ENS/V_pfaf_${pfaf}_rivwidth_hig_ENS.csv  \
+    ../output_test/cor_sens/V_rivwidth_hig_ENS/V_pfaf_${pfaf}_rivwidth_hig_ENS.csv\
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
 #
 ##*****************************************************************************
 ##Identify and trace rivers narrower than 100m draining to the ocean
@@ -1768,41 +1751,41 @@
 #echo "Success"
 #echo "********************"
 #fi
-#
-#
-##*****************************************************************************
-##Validate MeanDRS Width Estimates Against GRWL
-##*****************************************************************************
-#unt=$((unt+1))
-#if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
-#echo "Running unit test $unt/$tot"
-#
-#run_file=tmp_run_$unt.txt
-#
-#mkdir -p "../output_test/width_val"
-#
-#echo "- Validate MeanDRS Width Estimates Against GRWL"
-#../src/mws_width_val.py                                                        \
-#    ../input/MERIT-SWORD/ms_translate/sword_to_mb/sword_to_mb_pfaf_${pfaf}_translate.nc\
-#    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
-#    ../input/SWORD/${reg}_sword_reaches_hb${pfaf}_v16.shp                      \
-#    ../output_test/width_val/width_validation_pfaf_${pfaf}.csv                 \
-#    > $run_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
-#
-#echo "- Comparing width validation file (.csv)"
-#../src/tst_cmp.py                                                              \
-#    ../output/width_val/width_validation_pfaf_${pfaf}.csv                      \
-#    ../output_test/width_val/width_validation_pfaf_${pfaf}.csv                 \
-#    > $cmp_file
-#x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
-#
-#rm -f $run_file
-#rm -f $cmp_file
-#echo "Success"
-#echo "********************"
-#fi
-#
+
+
+#*****************************************************************************
+#Validate MeanDRS Width Estimates Against GRWL
+#*****************************************************************************
+unt=$((unt+1))
+if (("$unt" >= "$fst")) && (("$unt" <= "$lst")) ; then
+echo "Running unit test $unt/$tot"
+
+run_file=tmp_run_$unt.txt
+
+mkdir -p "../output_test/width_val"
+
+echo "- Validate MeanDRS Width Estimates Against GRWL"
+../src/mws_width_val.py                                                        \
+    ../input/MERIT-SWORD/ms_translate/sword_to_mb/sword_to_mb_pfaf_${pfaf}_translate.nc\
+    ../input/MeanDRS/riv_UNCOR/riv_pfaf_${pfaf}_MERIT_Hydro_v07_Basins_v01_GLDAS_ENS.shp\
+    ../input/SWORD/${reg}_sword_reaches_hb${pfaf}_v16.shp                      \
+    ../output_test/width_val/width_validation_pfaf_${pfaf}.csv                 \
+    > $run_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
+
+echo "- Comparing width validation file (.csv)"
+../src/tst_cmp.py                                                              \
+    ../output/width_val/width_validation_pfaf_${pfaf}.csv                      \
+    ../output_test/width_val/width_validation_pfaf_${pfaf}.csv                 \
+    > $cmp_file
+x=$? && if [ $x -gt 0 ] ; then echo "Failed comparison: $cmp_file" >&2 ; exit $x ; fi
+
+rm -f $run_file
+rm -f $cmp_file
+echo "Success"
+echo "********************"
+fi
+
 #
 ##*****************************************************************************
 ##Produce visualizations: Main Figures
