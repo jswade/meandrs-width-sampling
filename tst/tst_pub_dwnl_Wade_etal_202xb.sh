@@ -78,7 +78,7 @@ do
 #-----------------------------------------------------------------------------
 #Delete files from untested regions (all except pfaf 11)
 #-----------------------------------------------------------------------------
-    find "${folder}" -type f ! -name '*11*' ! -path -exec rm {} +
+    find "${folder}" -type f ! -name '*11*' -exec rm {} +
     if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 done
 
