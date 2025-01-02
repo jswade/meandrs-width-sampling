@@ -40,13 +40,25 @@ list=("riv_coast.zip"                                                          \
       "V_rivwidth_low.zip"                                                     \
       "V_rivwidth_nrm.zip"                                                     \
       "V_rivwidth_hig.zip"                                                     \
-      "largest_rivs.zip"                                                       \
-      "smallest_rivs.zip"                                                      \
-      "global_summary.zip"                                                     \
       "cor_sens.zip"                                                           \
       "rivwidth_sens.zip"                                                      \
       "width_val.zip"                                                          \
       )
+      
+# Full download with largest_rivs/smallest_rivs/global_summary
+#list=("riv_coast.zip"                                                          \
+#      "Qout_rivwidth.zip"                                                      \
+#      "V_rivwidth_low.zip"                                                     \
+#      "V_rivwidth_nrm.zip"                                                     \
+#      "V_rivwidth_hig.zip"                                                     \
+#      "largest_rivs.zip"                                                       \
+#      "smallest_rivs.zip"                                                      \
+#      "global_summary.zip"                                                     \
+#      "cor_sens.zip"                                                           \
+#      "rivwidth_sens.zip"                                                      \
+#      "width_val.zip"                                                          \
+#      )
+
 
 #-----------------------------------------------------------------------------
 #Download process
@@ -66,8 +78,7 @@ do
 #-----------------------------------------------------------------------------
 #Delete files from untested regions (all except pfaf 11)
 #-----------------------------------------------------------------------------
-    find "${folder}" -type f ! -name '*11*' ! -path '*/ms_region_overlap/*'   \
-        -exec rm {} +
+    find "${folder}" -type f ! -name '*11*' ! -path -exec rm {} +
     if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 done
 
