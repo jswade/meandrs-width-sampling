@@ -42,6 +42,15 @@ num_files=$(ls ../input/MeanDRS/Qout_COR/* | wc -l)
 #*****************************************************************************
 #Select which unit tests to perform based on inputs to this shell script
 #*****************************************************************************
+#Perform all unit tests if no options are given
+tot=33
+if [ "$#" = "0" ]; then
+     fst=1
+     lst=$tot
+     echo "Performing all unit tests"
+     echo "********************"
+fi
+
 #Perform one single unit test if one option is given
 if [ "$#" = "1" ]; then
      fst=$1

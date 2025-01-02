@@ -31,7 +31,7 @@ echo "********************"
 #Select which unit tests to perform based on inputs to this shell script
 #*****************************************************************************
 #Perform all unit tests if no options are given
-tot=31
+tot=33
 if [ "$#" = "0" ]; then
      fst=1
      lst=$tot
