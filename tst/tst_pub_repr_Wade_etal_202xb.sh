@@ -256,6 +256,21 @@ python ../src/mws_rivwidth_Qout.py                                             \
     > $run_file
 x=$? && if [ $x -gt 0 ] ; then echo "Failed run: $run_file" >&2 ; exit $x ; fi
 
+
+
+# Define the file paths
+file1="../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv"
+file2="../output_test/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv"
+
+# Print the first 5 rows and first columns of both files
+echo "First columns of $file1:"
+head -n 5 "$file1" | cut -d',' -f1
+
+echo "First columns of $file2:"
+head -n 5 "$file2" | cut -d',' -f1
+
+
+
 echo "- Comparing Qout river width file (.csv)"
 ../src/tst_cmp.py                                                              \
     ../output/Qout_rivwidth/Qout_pfaf_${pfaf}_rivwidth.csv                     \
