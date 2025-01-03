@@ -35,19 +35,16 @@ echo "- Downloading MeanDRS Width Sampling repository"
 #-----------------------------------------------------------------------------
 URL="https://zenodo.org/records/14538184/files"
 folder="../output"
-list=("riv_coast.zip")
+list=("riv_coast.zip"                                                          \
+      "Qout_rivwidth.zip"                                                      \
+      "V_rivwidth_low.zip"                                                     \
+      "V_rivwidth_nrm.zip"                                                     \
+      "V_rivwidth_hig.zip"                                                     \
+      "cor_sens.zip"                                                           \
+      "rivwidth_sens.zip"                                                      \
+      "width_val.zip"                                                          \
+      )
       
-
-#list=("riv_coast.zip"                                                          \
-#      "Qout_rivwidth.zip"                                                      \
-#      "V_rivwidth_low.zip"                                                     \
-#      "V_rivwidth_nrm.zip"                                                     \
-#      "V_rivwidth_hig.zip"                                                     \
-#      "cor_sens.zip"                                                           \
-#      "rivwidth_sens.zip"                                                      \
-#      "width_val.zip"                                                          \
-#      )
-#      
 # Full download with largest_rivs/smallest_rivs/global_summary
 #list=("riv_coast.zip"                                                          \
 #      "Qout_rivwidth.zip"                                                      \
