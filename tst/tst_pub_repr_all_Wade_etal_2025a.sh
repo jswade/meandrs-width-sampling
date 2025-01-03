@@ -1,6 +1,6 @@
 #!/bin/bash
 #*****************************************************************************
-#tst_pub_repr_all_Wade_etal_202xb.sh
+#tst_pub_repr_all_Wade_etal_2025a.sh
 #*****************************************************************************
 
 #Purpose:
@@ -17,7 +17,7 @@
 # - 0  if all experiments are successful
 # - 22 if some arguments are faulty
 #Author:
-#Jeffrey Wade, Cedric H. David, 2024
+#Jeffrey Wade, Cedric H. David, 2025
 
 #*****************************************************************************
 #Publication message

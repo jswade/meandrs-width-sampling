@@ -9,7 +9,7 @@
 # calculate global summary terms for rivers smaller than 100m.
 
 # Author:
-# Jeffrey Wade, Cedric H. David, 2024
+# Jeffrey Wade, Cedric H. David, 2025
 
 # ******************************************************************************
 # Import packages

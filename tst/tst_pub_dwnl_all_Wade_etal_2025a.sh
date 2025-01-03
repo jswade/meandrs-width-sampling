@@ -1,6 +1,6 @@
 #!/bin/bash
 #*****************************************************************************
-#tst_dwnl__all_Wade_etal_202xb.sh
+#tst_dwnl__all_Wade_etal_2025a.sh
 #*****************************************************************************
 
 #Purpose:
@@ -13,7 +13,7 @@
 # - 22 if there was a conversion problem
 # - 44 if one download is not successful
 #Author:
-#Jeffrey Wade, Cedric H. David, 2024.
+#Jeffrey Wade, Cedric H. David, 2025.
 
 #*****************************************************************************
 #Publication message

@@ -8,7 +8,7 @@
 # supplemental figures relating to the validation of width estimates.
 
 # Author:
-# Jeffrey Wade, Cedric H. David, 2024
+# Jeffrey Wade, Cedric H. David, 2025
 
 
 # ******************************************************************************

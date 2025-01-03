@@ -1,6 +1,6 @@
 ##!/bin/bash
 ##*****************************************************************************
-##tst_pub_repr_Wade_etal_202xb.sh
+##tst_pub_repr_Wade_etal_2025a.sh
 ##*****************************************************************************
 ##Purpose:
 ##DOI: xx.xxxx/xxxxxxxxxxxx
@@ -15,7 +15,7 @@
 ## - 22 if some arguments are faulty
 ## - 99 if a comparison failed
 ##Author:
-##Jeffrey Wade, Cedric H. David, 2024
+##Jeffrey Wade, Cedric H. David, 2025
 ##
 #*****************************************************************************
 #Publication message

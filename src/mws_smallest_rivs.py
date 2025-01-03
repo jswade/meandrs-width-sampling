@@ -10,7 +10,7 @@
 # reach, identify rivers narrower than 100m draining to the coast.
 
 # Author:
-# Jeffrey Wade, Cedric H. David, 2024
+# Jeffrey Wade, Cedric H. David, 2025
 
 # ******************************************************************************
 # Import packages
