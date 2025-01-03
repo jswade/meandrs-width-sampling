@@ -390,150 +390,150 @@ if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
 
 #-----------------------------------------------------------------------------
 #Download process, bypassing Google Drive download warning using cookies
-##-----------------------------------------------------------------------------
-##Download files for pfaf 11
-#file="${filelist[0]}"
-#id="${idlist[0]}"
-#
-##Save uuid value from server for authentication
-#wget "https://docs.google.com/uc?export=download&id=1z-l1ICC7X4iKy0vd7FkT5X4u8Ie2l3sy" -O- | sed -rn 's/.*name="uuid" value=\"([0-9A-Za-z_\-]+).*/\1/p' > "${folder}/google_uuid.txt"
-#if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
-#
-##Download file from server using uuid value
-#wget -O "${folder}/$file" "https://drive.usercontent.google.com/download?export=download&id=${id}&confirm=t&uuid=$(<"${folder}/google_uuid.txt")"
-#
-#rm "${folder}/google_uuid.txt"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-##-----------------------------------------------------------------------------
-##Extract files
-##-----------------------------------------------------------------------------
-#unzip -nq "${folder}/$file" -d "${folder}/${filename%.zip}"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-##-----------------------------------------------------------------------------
-##Delete zip files
-##-----------------------------------------------------------------------------
-#rm "${folder}/$file"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-##-----------------------------------------------------------------------------
-##Organize files by type (riv and cat)
-##-----------------------------------------------------------------------------
-#mkdir -p "$folder/cat"
-#mkdir -p "$folder/riv"
-#
-##Move all files beginning with cat
-#for file in "${folder}/cat"*
-#do
-#    #Confirm file exists and is regular
-#    if [ -f "$file" ]; then
-#        mv "$file" "$folder/cat/"
-#        if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#    fi
-#done
-#
-##Move all files beginning with riv
-#for file in "${folder}/riv"*
-#do
-#    #Confirm file exists and is regular
-#    if [ -f "$file" ]; then
-#        mv "$file" "$folder/riv/"
-#        if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#    fi
-#done
-#
-## Remove riv files
-#rm -rf "$folder/riv"
-#
-#echo "Success"
-#echo "********************"
-#
-##*****************************************************************************
-##Done
-##*****************************************************************************
-#
-#
-##*****************************************************************************
-##Download SWORD files
-##*****************************************************************************
-#echo "- Downloading SWORD files"
-##-----------------------------------------------------------------------------
-##Download parameters
-##-----------------------------------------------------------------------------
-#URL="https://zenodo.org/records/10013982/files"
-#folder="../input/SWORD"
-#list=("SWORD_v16_shp.zip")
-#
-##-----------------------------------------------------------------------------
-##Download process
-##-----------------------------------------------------------------------------
-#mkdir -p $folder
-#for file in "${list[@]}"
-#do
-#    wget -nv -nc $URL/$file -P $folder/
-#    if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
-#done
-#
-##-----------------------------------------------------------------------------
-##Extract files
-##-----------------------------------------------------------------------------
-#unzip -nq "${folder}/${list}" -d "${folder}/${list%.zip}"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-##-----------------------------------------------------------------------------
-##Delete files from untested regions (all except pfaf 11)
-##-----------------------------------------------------------------------------
-#find "${folder}" -type f ! -name '*11*' -exec rm {} +
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-##-----------------------------------------------------------------------------
-##Relocate reach files from subdirectories
-##-----------------------------------------------------------------------------
-#find "${folder}/${list%.zip}" -type f -name "*reaches*" -exec mv {} "${folder}" \;
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-#rm -rf "${folder}/${list%.zip}"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-#echo "Success"
-#echo "********************"
-#
-##*****************************************************************************
-##Done
-##*****************************************************************************
-#
-#
-##*****************************************************************************
-##Download MERIT-SWORD files
-##*****************************************************************************
-#echo "- Downloading MERIT-SWORD files"
-##-----------------------------------------------------------------------------
-##Download parameters
-##-----------------------------------------------------------------------------
-#URL="https://zenodo.org/records/13183883/files"
-#folder="../input/MERIT-SWORD"
-#list=("ms_translate.zip"                                                       \
-#      )
-#
-##-----------------------------------------------------------------------------
-##Download process
-##-----------------------------------------------------------------------------
-#mkdir -p $folder
-#for file in "${list[@]}"
-#do
-#    wget -nv -nc $URL/$file -P $folder/
-#    if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
-#done
-#
-##-----------------------------------------------------------------------------
-##Extract files
-##-----------------------------------------------------------------------------
-#unzip -nq "${folder}/${list}" -d "${folder}"
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
-#
-##-----------------------------------------------------------------------------
-##Delete files from untested regions (all except pfaf 11)
-##-----------------------------------------------------------------------------
-#find "${folder}" -type f ! -name '*11*' -exec rm {} +
-#if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+#-----------------------------------------------------------------------------
+#Download files for pfaf 11
+file="${filelist[0]}"
+id="${idlist[0]}"
+
+#Save uuid value from server for authentication
+wget "https://docs.google.com/uc?export=download&id=1z-l1ICC7X4iKy0vd7FkT5X4u8Ie2l3sy" -O- | sed -rn 's/.*name="uuid" value=\"([0-9A-Za-z_\-]+).*/\1/p' > "${folder}/google_uuid.txt"
+if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
+
+#Download file from server using uuid value
+wget -O "${folder}/$file" "https://drive.usercontent.google.com/download?export=download&id=${id}&confirm=t&uuid=$(<"${folder}/google_uuid.txt")"
+
+rm "${folder}/google_uuid.txt"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Extract files
+#-----------------------------------------------------------------------------
+unzip -nq "${folder}/$file" -d "${folder}/${filename%.zip}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Delete zip files
+#-----------------------------------------------------------------------------
+rm "${folder}/$file"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Organize files by type (riv and cat)
+#-----------------------------------------------------------------------------
+mkdir -p "$folder/cat"
+mkdir -p "$folder/riv"
+
+#Move all files beginning with cat
+for file in "${folder}/cat"*
+do
+    #Confirm file exists and is regular
+    if [ -f "$file" ]; then
+        mv "$file" "$folder/cat/"
+        if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+    fi
+done
+
+#Move all files beginning with riv
+for file in "${folder}/riv"*
+do
+    #Confirm file exists and is regular
+    if [ -f "$file" ]; then
+        mv "$file" "$folder/riv/"
+        if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+    fi
+done
+
+# Remove riv files
+rm -rf "$folder/riv"
+
+echo "Success"
+echo "********************"
+
+#*****************************************************************************
+#Done
+#*****************************************************************************
+
+
+#*****************************************************************************
+#Download SWORD files
+#*****************************************************************************
+echo "- Downloading SWORD files"
+#-----------------------------------------------------------------------------
+#Download parameters
+#-----------------------------------------------------------------------------
+URL="https://zenodo.org/records/10013982/files"
+folder="../input/SWORD"
+list=("SWORD_v16_shp.zip")
+
+#-----------------------------------------------------------------------------
+#Download process
+#-----------------------------------------------------------------------------
+mkdir -p $folder
+for file in "${list[@]}"
+do
+    wget -nv -nc $URL/$file -P $folder/
+    if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
+done
+
+#-----------------------------------------------------------------------------
+#Extract files
+#-----------------------------------------------------------------------------
+unzip -nq "${folder}/${list}" -d "${folder}/${list%.zip}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Delete files from untested regions (all except pfaf 11)
+#-----------------------------------------------------------------------------
+find "${folder}" -type f ! -name '*11*' -exec rm {} +
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Relocate reach files from subdirectories
+#-----------------------------------------------------------------------------
+find "${folder}/${list%.zip}" -type f -name "*reaches*" -exec mv {} "${folder}" \;
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+rm -rf "${folder}/${list%.zip}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+echo "Success"
+echo "********************"
+
+#*****************************************************************************
+#Done
+#*****************************************************************************
+
+
+#*****************************************************************************
+#Download MERIT-SWORD files
+#*****************************************************************************
+echo "- Downloading MERIT-SWORD files"
+#-----------------------------------------------------------------------------
+#Download parameters
+#-----------------------------------------------------------------------------
+URL="https://zenodo.org/records/13183883/files"
+folder="../input/MERIT-SWORD"
+list=("ms_translate.zip"                                                       \
+      )
+
+#-----------------------------------------------------------------------------
+#Download process
+#-----------------------------------------------------------------------------
+mkdir -p $folder
+for file in "${list[@]}"
+do
+    wget -nv -nc $URL/$file -P $folder/
+    if [ $? -gt 0 ] ; then echo "Problem downloading $file" >&2 ; exit 44 ; fi
+done
+
+#-----------------------------------------------------------------------------
+#Extract files
+#-----------------------------------------------------------------------------
+unzip -nq "${folder}/${list}" -d "${folder}"
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
+
+#-----------------------------------------------------------------------------
+#Delete files from untested regions (all except pfaf 11)
+#-----------------------------------------------------------------------------
+find "${folder}" -type f ! -name '*11*' -exec rm {} +
+if [ $? -gt 0 ] ; then echo "Problem converting" >&2 ; exit 22 ; fi
