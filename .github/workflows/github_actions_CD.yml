@@ -33,7 +33,7 @@ jobs:
    #Ubuntu
    #----------------------------------------------------------------------------
    ubuntu:
-      runs-on: ubuntu-20.04
+      runs-on: ubuntu-latest
 
       steps:
 
@@ -68,6 +68,8 @@ jobs:
       #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
          - name: Set up Docker Buildx
            uses: docker/setup-buildx-action@v3
+           with:
+            install: true # Use Buildx as default
 
       #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       #Login to Docker Hub
