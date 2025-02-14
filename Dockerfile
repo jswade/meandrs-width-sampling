@@ -39,9 +39,13 @@ COPY . .
 #*******************************************************************************
 #Operating System Requirements
 #*******************************************************************************
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends $(grep -v -E '(^#|^$)' requirements.apt) || apt-get install -f -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN rm /var/lib/dpkg/info/libc-bin.*
+RUN apt-get clean
+RUN apt-get update
+RUN apt-get install libc-bin
+RUN  apt-get update && \
+     apt-get install -y --no-install-recommends $(grep -v -E '(^#|^$)' requirements.apt) && \
+     rm -rf /var/lib/apt/lists/*
 
 
 #*******************************************************************************
