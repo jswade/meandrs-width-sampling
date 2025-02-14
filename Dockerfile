@@ -39,9 +39,9 @@ COPY . .
 #*******************************************************************************
 #Operating System Requirements
 #*******************************************************************************
-RUN  apt-get update && \
-     apt-get install -y --no-install-recommends $(grep -v -E '(^#|^$)' requirements.apt) && \
-     rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends $(grep -v -E '(^#|^$)' requirements.apt) || apt-get install -f -y && \
+    rm -rf /var/lib/apt/lists/*
 
 
 #*******************************************************************************
